@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>openwrt opkg无法联网下载解决办法 | sqzr&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="励志成为包工头的搬砖者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openwrt opkg无法联网下载解决办法">
+<meta property="og:url" content="http://sqzr.github.io//blog/2013/11/09/openwrt-opkgwu-fa-lian-wang-xia-zai-jie-jue-ban-fa/">
+<meta property="og:site_name" content="sqzr's blog">
+<meta property="og:description" content="励志成为包工头的搬砖者">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="openwrt opkg无法联网下载解决办法">
+<meta name="twitter:description" content="励志成为包工头的搬砖者">
+
+  
+    <link rel="alternative" href="/atom.xml" title="sqzr&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">sqzr&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习过程中的点点滴滴</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/sqzr" title="Github" target="_blank"></a>
+        
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" target="_blank"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://sqzr.github.io"></form>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+    document.getElementById("banner").style.backgroundImage = "url(/css/images/banner.png)";
+    
+</script>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-openwrt-opkgwu-fa-lian-wang-xia-zai-jie-jue-ban-fa" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/blog/2013/11/09/openwrt-opkgwu-fa-lian-wang-xia-zai-jie-jue-ban-fa/" class="article-date">
+  <time datetime="2013-11-09T06:45:00.000Z" itemprop="datePublished">2013 11月 9</time>
+</a>
+
+
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/openwrt/">openwrt</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      openwrt opkg无法联网下载解决办法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			
+		
+		</div>
+		
+        <p>很多时候.. 路由器处于无法连接外网的状态… 单装一个包 可能不是特别麻烦…直接去官方下载就好了,但是要装<code>luci</code>这些 需要解决很多依赖关系的软件…还是用opkg方便</p>
+<p>在想了很多办法后,还是决定在内网建立更新源,首先修改opkg更新地址:</p>
+<figure class="highlight sh"><figcaption><span>/etc/opkg.conf</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">src/gz barrier_breaker http://<span class="number">192.168</span>.<span class="number">10.122</span>/packages</div><div class="line">dest root /</div><div class="line">dest ram /tmp</div><div class="line">lists_dir ext /var/opkg-lists</div><div class="line">option overlay_root /overlay</div></pre></td></tr></table></figure>
+
+
+<p>hfs下载地址:<a href="http://www.melauto.it/rejetto/hfs.exe" target="_blank" rel="external">http://www.melauto.it/rejetto/hfs.exe</a><br>完整包下载:<a href="http://downloads.openwrt.org/snapshots/trunk/ar71xx/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-x86_64.tar.bz2" target="_blank" rel="external">http://downloads.openwrt.org/snapshots/trunk/ar71xx/OpenWrt-ImageBuilder-ar71xx_generic-for-linux-x86_64.tar.bz2</a><br>下载完成后拉入hfs里面..修改好对opkg.conf里面的对应位置,再执行okpg update . okpg install xxx 就能在线进行安装了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://sqzr.github.io//blog/2013/11/09/openwrt-opkgwu-fa-lian-wang-xia-zai-jie-jue-ban-fa/" data-id="qfs3nzmp5t91uaev" data_title="openwrt opkg无法联网下载解决办法" data_summary="很多时候.. 路由器处于无法连接外网的状态… 单装一个..." class="article-share-link">Share</a>
+      
+
+      
+	  
+      
+	  
+<span>
+更新日期:<time datetime="2014-10-30T13:12:35.000Z" itemprop="dateModified">2014 10月 30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2013/11/09/openwrt-shi-yong-lu-you-mo-shi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Openwrt 使用路由模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2013/11/09/wo-shi-ru-he-bian-yi-osmocombbde/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">我是如何编译osmocomBB的</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+</section>
+        
+          
+<aside id="sidebar">
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">ABOUT ME</h3>
+  <ul class="widget about-me">
+    
+    <li><img class="author" title="About me" src="http://www.gravatar.com/avatar/5ba302d74468e44e87e1e1fd94b127fa?s=180" /></li>
+    
+    
+    <li>励志成为包工头的搬砖者</li>
+    
+  </ul>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/openwrt/">openwrt</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/渗透/">渗透</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/linux/" style="font-size: 20.00px; color: #1db400;">linux</a><a href="/tags/mac/" style="font-size: 15.33px; color: #5dbe94;">mac</a><a href="/tags/mysql/" style="font-size: 13.00px; color: #7dc3de;">mysql</a><a href="/tags/oracle/" style="font-size: 15.33px; color: #5dbe94;">oracle</a><a href="/tags/python/" style="font-size: 17.67px; color: #3db94a;">python</a><a href="/tags/zmap/" style="font-size: 13.00px; color: #7dc3de;">zmap</a><a href="/tags/神器/" style="font-size: 20.00px; color: #1db400;">神器</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+
+</aside>
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 sqzr<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+
+<!-- 多说公共JS代码 end -->
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+-->
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<div class="bottom-btn">
+
+	<a class="icon-gotop" href="javascript:void(0)" title="返回顶部"></a>
+	<script src="/js/gotop.js" type="text/javascript"></script>
+
+	<!--
+	<script src="/js/gotop.js"></script>
+	-->
+
+
+</div>
+<script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

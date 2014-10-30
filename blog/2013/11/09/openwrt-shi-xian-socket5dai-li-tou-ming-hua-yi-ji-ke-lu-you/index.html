@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>openwrt 实现socket5代理透明化以及可路由 | sqzr&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="励志成为包工头的搬砖者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openwrt 实现socket5代理透明化以及可路由">
+<meta property="og:url" content="http://sqzr.github.io//blog/2013/11/09/openwrt-shi-xian-socket5dai-li-tou-ming-hua-yi-ji-ke-lu-you/">
+<meta property="og:site_name" content="sqzr's blog">
+<meta property="og:description" content="励志成为包工头的搬砖者">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="openwrt 实现socket5代理透明化以及可路由">
+<meta name="twitter:description" content="励志成为包工头的搬砖者">
+
+  
+    <link rel="alternative" href="/atom.xml" title="sqzr&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">sqzr&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习过程中的点点滴滴</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/sqzr" title="Github" target="_blank"></a>
+        
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" target="_blank"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://sqzr.github.io"></form>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+    document.getElementById("banner").style.backgroundImage = "url(/css/images/banner.png)";
+    
+</script>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-openwrt-shi-xian-socket5dai-li-tou-ming-hua-yi-ji-ke-lu-you" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/blog/2013/11/09/openwrt-shi-xian-socket5dai-li-tou-ming-hua-yi-ji-ke-lu-you/" class="article-date">
+  <time datetime="2013-11-09T07:00:00.000Z" itemprop="datePublished">2013 11月 9</time>
+</a>
+
+
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/openwrt/">openwrt</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      openwrt 实现socket5代理透明化以及可路由
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#升级你的openwrt内核"><span class="toc-number">1.</span> <span class="toc-text">升级你的openwrt内核</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装shadowsocks客服端在你的路由器上"><span class="toc-number">2.</span> <span class="toc-text">安装shadowsocks客服端在你的路由器上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置shadowsocks"><span class="toc-number">3.</span> <span class="toc-text">配置shadowsocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装redsock"><span class="toc-number">4.</span> <span class="toc-text">安装redsock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置redsock"><span class="toc-number">5.</span> <span class="toc-text">配置redsock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后我们实现iptables进行转发到redsock上"><span class="toc-number">6.</span> <span class="toc-text">最后我们实现iptables进行转发到redsock上</span></a></li></ol>
+		
+		</div>
+		
+        <p>这种情况需要用到的人并不是很多…先来谈谈这样做的优势:</p>
+<pre><code><span class="bullet">1. </span>透明代理，即可不指定代理而自动使用SOCKS代理转发。换句话说，把代理配置在了应用层以下
+<span class="bullet">2. </span>共享代理，即把只能本地访问的SOCKS代理(SSH隧道)转换成可共享的。也就是不透露SSH账号且只建立一次隧道，即可供多人使用。
+<span class="bullet">3. </span>转发规则自定义，即可将分组分类(比如按目的地址分类)并配置转发。
+<span class="bullet">4. </span>全局代理,如果你想在windows上全局代理socket5,那么有非常好用的软件,proxifier..但如果是mac?ios?android?linux?都没有那么好的方案,所以只有在路由器上进行流量的路由。
+</code></pre><p>对于某些hacker而言,可以用来突破校内网各种认证上网,哈哈,但首先你得有台有外网权限的内网服务器…<br>怎么搭建shadowsocks代理就不说了..官方有提供很多版本.比如golang,python,node.js.我选择了用python,而且是老版本的,因为新版本的 会注册python的很多组件,很不遍历.老版本的提供了server.py,,直接运行即可.也可以改成server.pyc,隐藏后台运行..<br><a id="more"></a></p>
+<hr>
+<h2 id="升级你的openwrt内核">升级你的openwrt内核</h2>
+<p>我在研究的时候,并没有这么做,而是用卖家已经给刷好的内核..3.3.x进行安装..发现无法安装官方现在提供的 kmod 系列包..  也无法使用iptables的to-prot 功能…进行内核升级:<br><a href="http://downloads.openwrt.org/snapshots/trunk/ar71xx/" target="_blank" rel="external">http://downloads.openwrt.org/snapshots/trunk/ar71xx/</a><br>↑这里包含有ar71xx构建的所有bin包..我的WR703N是用的ar71xx构架的,<br><a href="http://downloads.openwrt.org/snapshots/trunk/ar71xx/openwrt-ar71xx-generic-tl-wr703n-v1-squashfs-factory.bin" target="_blank" rel="external">http://downloads.openwrt.org/snapshots/trunk/ar71xx/openwrt-ar71xx-generic-tl-wr703n-v1-squashfs-factory.bin</a><br>我找到了这个包,下载到本地,通过Winscp传到路由器上..  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sysupgrade /tmp/openwrt-ar71xx-generic-<span class="keyword">tl</span>-wr703n-v1-squashfs-factory.bin</div></pre></td></tr></table></figure>
+
+<p>需要这样..就能完成内核升级,中途会让你选择一些配置文件进行备份..刷机完成后,输出命令:  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uname <span class="operator">-a</span></div></pre></td></tr></table></figure>
+
+<p>进行查看内核,截至发文时,官方更新的内核:  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root<span class="variable">@OpenWrt_SLboat_Mod</span><span class="symbol">:~</span><span class="comment"># uname -a</span></div><div class="line"><span class="constant">Linux OpenWrt_SLboat_Mod </span><span class="number">3.10</span>.<span class="number">17</span> <span class="comment">#1 Thu Oct 24 22:50:38 PDT 2013 mips GNU/Linux</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="安装shadowsocks客服端在你的路由器上">安装shadowsocks客服端在你的路由器上</h2>
+<p>官方有提供shadowsocks的ipk包.但由于被墙..校内网翻墙比较麻烦.我在另外一个网站上发现了他:<br><a href="http://travis-ci.s3-website-ap-northeast-1.amazonaws.com/nightly/shadowsocks-libev_1.2-c06c1495fbe6b6f28c7903a5af1c8554896b6c39_ar71xx.ipk" target="_blank" rel="external">http://travis-ci.s3-website-ap-northeast-1.amazonaws.com/nightly/shadowsocks-libev_1.2-c06c1495fbe6b6f28c7903a5af1c8554896b6c39_ar71xx.ipk</a><br>我选择了1.2版本的..进行安装,传到路由器上:  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">opkg <span class="operator"><span class="keyword">install</span> shadowsocks-libev_1<span class="number">.2</span>-c06c1495fbe6b6f28c7903a5af1c8554896b6c39_ar71xx.ipk</span></div></pre></td></tr></table></figure>
+
+<p>报错…缺少依赖包,据官方说..opkg是会自动去他们官方源找依赖包自动下载安装的.但我的opkg并没有这么做,而是直接报找不到安装包,也许是我路由器目前没搭建好各种环境..还不能联网的原因(drcom认证),没办法手动装吧..官方所有ar71xx的包在这里：<br><a href="http://downloads.openwrt.org/snapshots/trunk/ar71xx/packages/" target="_blank" rel="external">http://downloads.openwrt.org/snapshots/trunk/ar71xx/packages/</a><br>他提示缺什么,就装什么上去吧.安装办法同上..opkg install ipk位置  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="variable">Installing</span> shadowsocks to root…</div><div class="line"><span class="variable">Configuring</span> shadowsocks.</div></pre></td></tr></table></figure>
+
+<p>在解决各种依赖包问题后,出现这个,那么恭喜你,你安装成功了  </p>
+<hr>
+<h2 id="配置shadowsocks">配置shadowsocks</h2>
+<p>接下来进行配置,编辑文件/etc/config/shadowsocks.json,和你的服务器上搭建配置对应..<br>运行shadowsocks:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/<span class="keyword">init</span>.d/shadowsocks start</div></pre></td></tr></table></figure>
+
+<p>运行成功后,我们查看有没有监听你指定的端口,以及用全局代理软件测试下吧:  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netstat -tupln | <span class="keyword">grep</span> <span class="number">1080</span></div></pre></td></tr></table></figure>
+
+<p>我们看到1080已经处于监听状态了..恭喜你.你成功完成了这步  </p>
+<hr>
+<h2 id="安装redsock">安装redsock</h2>
+<p>有了shadowscoks,可以连接上ss服务器了.那接下来就开始考虑如果进行流量的路由吧..在网上找了很多方案..找到一个叫redsock的软件,安装他来试试,安装包在这里:<br><a href="http://downloads.openwrt.org/snapshots/trunk/ar71xx/packages/redsocks_0.4-a9cfd090119385a1ef973baf94342a2db20595b9_ar71xx.ipk" target="_blank" rel="external">http://downloads.openwrt.org/snapshots/trunk/ar71xx/packages/redsocks_0.4-a9cfd090119385a1ef973baf94342a2db20595b9_ar71xx.ipk</a><br>安装过程:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">opkg install redsocks_0.<span class="number">4</span><span class="operator">-a</span>9cfd090119385a1ef973baf94342a2db20595b9_ar71xx.ipk</div></pre></td></tr></table></figure>
+
+<p>中间也需要解决很多依赖包,继续去上面的网站上找</p>
+<hr>
+<h2 id="配置redsock">配置redsock</h2>
+<p>只需要编辑/etc/redsocks.conf文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="variable">local_ip =</span> <span class="number">0.0</span>.<span class="number">0.0</span>;</div><div class="line"><span class="variable">ip =</span> <span class="number">127.0</span>.<span class="number">0.1</span>;</div><div class="line"><span class="variable">port =</span> <span class="number">1080</span>; //shadowsocks local port</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="最后我们实现iptables进行转发到redsock上">最后我们实现iptables进行转发到redsock上</h2>
+<p>补充:<br>舒服大意.按照上面说的iptables 配置后,有几个问题.–dport 80 -j RETURN 的确是让 内网ip80端口不经常ss代理了,但问题是..连接到外网的一些80端口,也不经过了..到头来..就无法实现功能了,so..把iptables改成这样:  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iptables -<span class="keyword">t</span> nat -A PREROUTING -<span class="keyword">i</span> <span class="keyword">br</span>-<span class="keyword">lan</span> -<span class="keyword">p</span> tcp -<span class="keyword">d</span> <span class="number">192.168</span>.<span class="number">0.0</span>/<span class="number">16</span> -<span class="keyword">j</span> RETURN</div><div class="line">iptables -<span class="keyword">t</span> nat -A PREROUTING -<span class="keyword">i</span> <span class="keyword">br</span>-<span class="keyword">lan</span> -<span class="keyword">p</span> tcp -<span class="keyword">j</span> REDIRECT –<span class="keyword">to</span>-port <span class="number">12345</span></div></pre></td></tr></table></figure>
+
+<p>改成这样后,不再用端口来划分是否该走SS代理.而是用ip段来划分了… iptables 中d代表目的地址,如果请求的目的地址是 192.168.x.x .. 则返回… 我认为iptables的规则应该是 先配置的先执行…我测试 如果这两个语句相反..则完全无法发挥第二条的作用. 不知是否我的问题.. iptables 会先经过第一条 判断是否是那ip段.如果是 则 返回.如果是 再检测下面一跳..进行 redirect的动作 转发到 12345端口上(也就是redsock的端口)  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://sqzr.github.io//blog/2013/11/09/openwrt-shi-xian-socket5dai-li-tou-ming-hua-yi-ji-ke-lu-you/" data-id="qhrp2jlfrzbf0ryq" data_title="openwrt 实现socket5代理透明化以及可路由" data_summary="这种情况需要用到的人并不是很多…先来谈谈这样做的优势:..." class="article-share-link">Share</a>
+      
+
+      
+	  
+      
+	  
+<span>
+更新日期:<time datetime="2014-10-30T13:16:28.000Z" itemprop="dateModified">2014 10月 30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2013/11/10/ubuntu-wine-mo-shou-shi-jie-wan-mei-yun-xing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ubuntu wine 魔兽世界完美运行
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2013/11/09/openwrt-shi-yong-lu-you-mo-shi/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Openwrt 使用路由模式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+</section>
+        
+          
+<aside id="sidebar">
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">ABOUT ME</h3>
+  <ul class="widget about-me">
+    
+    <li><img class="author" title="About me" src="http://www.gravatar.com/avatar/5ba302d74468e44e87e1e1fd94b127fa?s=180" /></li>
+    
+    
+    <li>励志成为包工头的搬砖者</li>
+    
+  </ul>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/openwrt/">openwrt</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/渗透/">渗透</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/linux/" style="font-size: 20.00px; color: #1db400;">linux</a><a href="/tags/mac/" style="font-size: 15.33px; color: #5dbe94;">mac</a><a href="/tags/mysql/" style="font-size: 13.00px; color: #7dc3de;">mysql</a><a href="/tags/oracle/" style="font-size: 15.33px; color: #5dbe94;">oracle</a><a href="/tags/python/" style="font-size: 17.67px; color: #3db94a;">python</a><a href="/tags/zmap/" style="font-size: 13.00px; color: #7dc3de;">zmap</a><a href="/tags/神器/" style="font-size: 20.00px; color: #1db400;">神器</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+
+</aside>
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 sqzr<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+
+<!-- 多说公共JS代码 end -->
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+-->
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<div class="bottom-btn">
+
+	<a class="icon-gotop" href="javascript:void(0)" title="返回顶部"></a>
+	<script src="/js/gotop.js" type="text/javascript"></script>
+
+	<!--
+	<script src="/js/gotop.js"></script>
+	-->
+
+
+</div>
+<script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

