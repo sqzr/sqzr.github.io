@@ -77,6 +77,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-nginx-reverse-proxy-google" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/blog/2014/11/02/nginx-reverse-proxy-google/" class="article-date">
+  <time datetime="2014-11-02T11:56:03.000Z" itemprop="datePublished">2014 11月 2</time>
+</a>
+
+
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/折腾/">折腾</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2014/11/02/nginx-reverse-proxy-google/">nginx 反向代理谷歌</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>已经有不少人做了类似的站点,大部分都没处理好几个问题..比如谷歌的一些图片和js放在<code>ssl.gstatic.com</code>这个域名上,虽然没加载出来也不会对搜索有什么影响,但看着chrome一直转圈,非常不爽。<br>一个处理的比较好的网站<a href="http://wen.lu/" target="_blank" rel="external">wen.lu</a>,不管是速度还是各方面都比较好.. 但缺点就是人用的比较多,偶尔会出现要输验证码的情况,花了一天的时间,自己折腾了下反向代理谷歌。</p>
+<h2 id="nginx安装">nginx安装</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd /tmp</div><div class="line">git clone git://github.com/yaoweibin/ngx_http_substitutions_filter_module.git # nginx 的过滤器模块(比http_sub_module更加灵活)</div><div class="line">wget http://nginx.org/download/nginx-1.7.7.tar.gz</div><div class="line">tar -xzvf nginx-1.7.7.tar.gz</div><div class="line">cd /tmp/nginx-1.7.7</div><div class="line">./configure \</div><div class="line">-<span class="ruby">-prefix=<span class="regexp">/www/wdlinux</span><span class="regexp">/nginx \ # 安装位置</span></span></div><div class="line">-<span class="ruby">-with-http_ssl_module \</span></div><div class="line">-<span class="ruby">-with-http_sub_module \</span></div><div class="line">-<span class="ruby">-with-http_gzip_static_module \</span></div><div class="line">-<span class="ruby">-with-http_stub_status_module \</span></div><div class="line">-<span class="ruby">-add-<span class="class"><span class="keyword">module</span>=/<span class="title">tmp</span>/<span class="title">ngx_http_substitutions_filter_module</span> <span class="comment"># 添加nginx过滤器模块</span></span></span></div><div class="line">make & make install</div></pre></td></tr></table></figure>
+
+<p>安装上面的步骤安装好nginx,如果中途遇到什么报错,请google。<br>
+        
+          <p class="article-more-link">
+            <a href="/blog/2014/11/02/nginx-reverse-proxy-google/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/" data-id="aki786vigkifcppx" data_title="nginx 反向代理谷歌" data_summary="已经有不少人做了类似的站点,大部分都没处理好几个问题...." class="article-share-link">Share</a>
+      
+
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2014-11-02T12:58:51.000Z" itemprop="dateModified">2014 11月 2</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+
+  
     <article id="post-windows-penetration-and-provide-the-right-skills-summary" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -698,71 +767,6 @@ WinRar 是常用的压缩与解压缩软件工具。它能..." class="article-sh
 <!-- 多说评论框 end -->
 
   
-    <article id="post-xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-<a href="/blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/" class="article-date">
-  <time datetime="2014-03-04T10:18:00.000Z" itemprop="datePublished">2014 3月 4</time>
-</a>
-
-
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/渗透/">渗透</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/">西域论坛用户暴力破解脚本(python)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>好象很多社工库都关闭了,要不抽风,要不收费,要不打不开!!蛋疼,有时候实在想查数据,没地方查。还是自己收集点数据在本地用软件来检索方便。在纠结哪里收集点数据的时候,目测到了一个论坛<a href="http://bbs.xiyv.net" target="_blank" rel="external">西域论坛</a>。一看列表,发现数据还不少,但是很大部分都需要金币,发裤子可以得金币,坑爹,我等小菜哪有什么私藏的裤子啊,哈哈。发现这论坛登陆没验证码,自己写个脚本爆破吧.<br><code>脚本写的非常烂,不考虑性能(其实有用多线程,但线程控制写的很烂,加上论坛有安全狗,只有放慢速度),实际还是可用的</code><br>
-        
-          <p class="article-more-link">
-            <a href="/blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-	  
-	  <a data-url="http://sqzr.github.io//blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/" data-id="ted7cjwqp6y0tqui" data_title="西域论坛用户暴力破解脚本(python)" data_summary="好象很多社工库都关闭了,要不抽风,要不收费,要不打不开..." class="article-share-link">Share</a>
-      
-
-      
-	  
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/神器/">神器</a></li></ul>
-
-	  
-<span>
-更新日期:<time datetime="2014-10-30T12:59:57.000Z" itemprop="dateModified">2014 10月 30</time>
-</span>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-<!-- 多说评论框 start -->
-
-<!-- 多说评论框 end -->
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -793,7 +797,7 @@ WinRar 是常用的压缩与解压缩软件工具。它能..." class="article-sh
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/openwrt/">openwrt</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/渗透/">渗透</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/openwrt/">openwrt</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/渗透/">渗透</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a><span class="category-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -803,7 +807,7 @@ WinRar 是常用的压缩与解压缩软件工具。它能..." class="article-sh
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/linux/" style="font-size: 20.00px; color: #1db400;">linux</a><a href="/tags/mac/" style="font-size: 15.33px; color: #5dbe94;">mac</a><a href="/tags/mysql/" style="font-size: 13.00px; color: #7dc3de;">mysql</a><a href="/tags/oracle/" style="font-size: 15.33px; color: #5dbe94;">oracle</a><a href="/tags/python/" style="font-size: 17.67px; color: #3db94a;">python</a><a href="/tags/zmap/" style="font-size: 13.00px; color: #7dc3de;">zmap</a><a href="/tags/神器/" style="font-size: 20.00px; color: #1db400;">神器</a>
+      <a href="/tags/linux/" style="font-size: 20.00px; color: #1db400;">linux</a><a href="/tags/mac/" style="font-size: 15.33px; color: #5dbe94;">mac</a><a href="/tags/mysql/" style="font-size: 13.00px; color: #7dc3de;">mysql</a><a href="/tags/nginx/" style="font-size: 13.00px; color: #7dc3de;">nginx</a><a href="/tags/oracle/" style="font-size: 15.33px; color: #5dbe94;">oracle</a><a href="/tags/python/" style="font-size: 17.67px; color: #3db94a;">python</a><a href="/tags/zmap/" style="font-size: 13.00px; color: #7dc3de;">zmap</a><a href="/tags/神器/" style="font-size: 20.00px; color: #1db400;">神器</a>
     </div>
   </div>
 
@@ -813,7 +817,7 @@ WinRar 是常用的压缩与解压缩软件工具。它能..." class="article-sh
   <div class="widget-wrap">
     <h3 class="widget-title">archive</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 

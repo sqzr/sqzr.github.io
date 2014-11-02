@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>nginx 反向代理谷歌 | sqzr&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="励志成为包工头的搬砖者">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx 反向代理谷歌">
+<meta property="og:url" content="http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/">
+<meta property="og:site_name" content="sqzr's blog">
+<meta property="og:description" content="励志成为包工头的搬砖者">
+<meta property="og:image" content="//dn-sqzr.qbox.me/七牛云设置镜像.png">
+<meta property="og:image" content="//dn-sqzr.qbox.me/绑定支持https的域名.png">
+<meta property="og:image" content="//dn-sqzr.qbox.me/缓存结果.png">
+<meta property="og:image" content="//dn-sqzr.qbox.me/google反代提示.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx 反向代理谷歌">
+<meta name="twitter:description" content="励志成为包工头的搬砖者">
+
+  
+    <link rel="alternative" href="/atom.xml" title="sqzr&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">sqzr&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录学习过程中的点点滴滴</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-github-link" class="nav-icon" href="https://github.com/sqzr" title="Github" target="_blank"></a>
+        
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" target="_blank"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://sqzr.github.io"></form>
+      </div>
+    </div>
+  </div>
+  <script>
+    
+    document.getElementById("banner").style.backgroundImage = "url(/css/images/banner.png)";
+    
+</script>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-nginx-reverse-proxy-google" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+<a href="/blog/2014/11/02/nginx-reverse-proxy-google/" class="article-date">
+  <time datetime="2014-11-02T11:56:03.000Z" itemprop="datePublished">2014 11月 2</time>
+</a>
+
+
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/折腾/">折腾</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      nginx 反向代理谷歌
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+		
+		<div id="toc" class="toc-article">
+			<h2 class="toc-title"><span>文章目录</span></h2>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx安装"><span class="toc-number">1.</span> <span class="toc-text">nginx安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置反向代理"><span class="toc-number">2.</span> <span class="toc-text">配置反向代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用七牛云代替gstatic"><span class="toc-number">2.2.</span> <span class="toc-text">使用七牛云代替gstatic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些细节问题"><span class="toc-number">2.3.</span> <span class="toc-text">一些细节问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没解决的问题"><span class="toc-number">3.</span> <span class="toc-text">没解决的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+		
+		</div>
+		
+        <p>已经有不少人做了类似的站点,大部分都没处理好几个问题..比如谷歌的一些图片和js放在<code>ssl.gstatic.com</code>这个域名上,虽然没加载出来也不会对搜索有什么影响,但看着chrome一直转圈,非常不爽。<br>一个处理的比较好的网站<a href="http://wen.lu/" target="_blank" rel="external">wen.lu</a>,不管是速度还是各方面都比较好.. 但缺点就是人用的比较多,偶尔会出现要输验证码的情况,花了一天的时间,自己折腾了下反向代理谷歌。</p>
+<h2 id="nginx安装">nginx安装</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd /tmp</div><div class="line">git clone git://github.com/yaoweibin/ngx_http_substitutions_filter_module.git # nginx 的过滤器模块(比http_sub_module更加灵活)</div><div class="line">wget http://nginx.org/download/nginx-1.7.7.tar.gz</div><div class="line">tar -xzvf nginx-1.7.7.tar.gz</div><div class="line">cd /tmp/nginx-1.7.7</div><div class="line">./configure \</div><div class="line">-<span class="ruby">-prefix=<span class="regexp">/www/wdlinux</span><span class="regexp">/nginx \ # 安装位置</span></span></div><div class="line">-<span class="ruby">-with-http_ssl_module \</span></div><div class="line">-<span class="ruby">-with-http_sub_module \</span></div><div class="line">-<span class="ruby">-with-http_gzip_static_module \</span></div><div class="line">-<span class="ruby">-with-http_stub_status_module \</span></div><div class="line">-<span class="ruby">-add-<span class="class"><span class="keyword">module</span>=/<span class="title">tmp</span>/<span class="title">ngx_http_substitutions_filter_module</span> <span class="comment"># 添加nginx过滤器模块</span></span></span></div><div class="line">make & make install</div></pre></td></tr></table></figure>
+
+<p>安装上面的步骤安装好nginx,如果中途遇到什么报错,请google。<br><a id="more"></a></p>
+<hr>
+<h2 id="配置反向代理">配置反向代理</h2>
+<h3 id="配置文件">配置文件</h3>
+<p>直接上配置文件:  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="title">server</span> {</div><div class="line">    <span class="title">listen</span> <span class="number">443</span>;</div><div class="line">    <span class="title">server_name</span> sqzr.cc;</div><div class="line">    <span class="title">ssl</span> <span class="built_in">on</span>;</div><div class="line">    <span class="title">ssl_certificate</span> xxx.crt; <span class="comment"># crt 位置</span></div><div class="line">    <span class="title">ssl_certificate_key</span> xxx.key; <span class="comment"># key 位置</span></div><div class="line"></div><div class="line">    <span class="title">location</span> / {</div><div class="line">        <span class="comment"># 反向代理缓存配置</span></div><div class="line">        <span class="title">proxy_cache_key</span> <span class="variable">$scheme</span>://<span class="variable">$host</span><span class="variable">$request_uri</span>;</div><div class="line">        <span class="title">proxy_temp_path</span> /home/sqzrproxy_cache_tmp;</div><div class="line">        <span class="title">proxy_cache_path</span> /home/sqzrproxy_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=sqzrproxy:<span class="number">20m</span> inactive=<span class="number">10d</span> max_size=<span class="number">2g</span>;</div><div class="line">        <span class="title">proxy_cache</span> sqzrproxy;</div><div class="line">        <span class="title">proxy_cache_valid</span> <span class="number">200</span> <span class="number">302</span> <span class="number">24h</span>;</div><div class="line">        <span class="title">proxy_cache_valid</span> <span class="number">404</span> <span class="number">1m</span>;</div><div class="line">        <span class="comment"># end 反向代理缓存配置</span></div><div class="line">        <span class="title">expires</span> <span class="number">30d</span>;   <span class="comment"># 用户游览器缓存时间</span></div><div class="line">        <span class="title">proxy_redirect</span> <span class="url">https://www.google.com/</span> /;</div><div class="line">        <span class="title">proxy_cookie_domain</span> google.com sqzr.cc;</div><div class="line">        <span class="title">proxy_pass</span> <span class="url">http://173.194.38.69</span>; <span class="comment"># 反代的google一个ip</span></div><div class="line">        <span class="title">proxy_set_header</span> Accept-Encoding <span class="string">""</span>;</div><div class="line">        <span class="title">proxy_set_header</span> User-Agent <span class="variable">$http_user_agent</span>;</div><div class="line">        <span class="title">proxy_set_header</span> Accept-Language <span class="string">"zh-CN"</span>;</div><div class="line">        <span class="comment">#proxy_set_header Cookie "PREF=ID=047808f19f6de346:U=0f62f33dd8549d11:FF=2:LD=zh-CN:NW=1:TM=1325338577:LM=1332142444:GM=1:SG=2:S=rE0SyJh2w1IQ-Maw"; # 使用此cookie 谷歌在搜索结果打开的时候会弹出新窗口</span></div><div class="line">        <span class="title">proxy_set_header</span> Cookie <span class="string">"PREF=ID=a55d9a4143345dbb:FF=0:TM=1414914150:LM=1414914150:S=Sm6aRXOASTr7rVM9;NID=67=lFnfhba9BOH4rXNaxA0ieI_XSHv3Mqu9scHN-Byu5sgdy2DAtb_SfC8XVYJAtREoKDJk3M54tGBZK1cCM0TGkJ_yM7Eqrxk2GVGnxJ87V1yUIIRs4ZFAmh2xlIHn1pug;"</span>; <span class="comment"># 使用此cookie 搜索的时候谷歌用ajax加载结果(无刷新页面) 谷歌在搜索结果打开的时候不会弹出新窗口</span></div><div class="line">        <span class="comment"># 关键字替换</span></div><div class="line">        <span class="title">subs_filter_types</span> text/css text/xml text/javascript; <span class="comment"># 过滤类型</span></div><div class="line">        <span class="title">subs_filter</span> ssl.gstatic.com sqzr.cc; <span class="comment"># google会加载ssl.gstatic.com的几个资源和文件,都是在gb目录下,下面反代这个地址</span></div><div class="line">        <span class="title">subs_filter</span> www.google.com sqzr.cc;</div><div class="line">        <span class="comment"># end 关键字替换</span></div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="comment"># 反代ssl.gstatic.com</span></div><div class="line">    <span class="title">location</span> /gb {</div><div class="line">        <span class="comment"># 随便写了下,自己没使用自己的服务器来反代</span></div><div class="line">        <span class="title">proxy_pass</span> <span class="url">http://ssl.gstatic.com/gb/</span>;</div><div class="line">        <span class="title">proxy_set_header</span> Accept-Encoding <span class="string">""</span>;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="title">server</span> {</div><div class="line">    <span class="title">listen</span> <span class="number">80</span>;</div><div class="line">    <span class="title">server_name</span> sqzr.cc;</div><div class="line">    <span class="title">rewrite</span><span class="regexp"> ^(.*)</span> <span class="url">https://google.sqzr.cc$1</span> <span class="built_in">permanent</span>; <span class="comment"># 强制使用https</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="使用七牛云代替gstatic">使用七牛云代替gstatic</h3>
+<p>能不反代的地址尽量不要反代,比如一些常年不变的图片,可以直接就缓存到服务器上。<br><code>ssl.gstatic.com</code>域上的几个资源就这样,可以用七牛云提供的镜像功能来缓存到七牛云上。<br><img src="//dn-sqzr.qbox.me/七牛云设置镜像.png" alt="设置镜像站点"><br>默认七牛给的域名不支持https,绑定一个他们分配的：<br><img src="//dn-sqzr.qbox.me/绑定支持https的域名.png" alt="绑定支持https的域名"><br>修改nginx中的关键词替换:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">subs_filter ssl.gstatic.<span class="keyword">com</span> dn-xxx.qbox.<span class="keyword">me</span>;</div></pre></td></tr></table></figure>
+
+<p>访问一次,就自动缓存到七牛云的服务器上了:<br><img src="//dn-sqzr.qbox.me/缓存结果.png" alt="缓存结果"></p>
+<h3 id="一些细节问题">一些细节问题</h3>
+<ol>
+<li>在网上看到很多人说无法成功的替换<code>ssl.gstatic.com</code>这个域名,之前我也遇到过,折腾了一天才发现<code>proxy_pass http://173.194.38.69</code> 某些地址可以修改成功,有些不可以(不知道原因,希望懂的能指导指导)  </li>
+<li>google.com下的<code>/textinputassistant/tia.png</code>无法替换,也和上个问题一样,有些ip可以有些不行</li>
+</ol>
+<hr>
+<h2 id="没解决的问题">没解决的问题</h2>
+<p>这样反代下来还是有几个问题没解决,如果使用第一个cookie反代google(用新页面打开搜索结果),搜索不了几次就会出现:<br><img src="//dn-sqzr.qbox.me/google反代提示.png" alt="google反代提示"><br>使用无刷新搜索的那个cookie就不会出来(因为整体页面没刷新,没加载,如果在里面切换到图片搜索再切换回来,一样会出现)<br>希望各位大神能指导指导</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="http://www.v2ex.com/t/126028" target="_blank" rel="external">分享一下我的 Nginx 反向代理 Google 以及草榴等的参数配置</a></li>
+<li><a href="http://blog.linuxeye.com/399.html" target="_blank" rel="external">Nginx反向代理Google</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+	  
+	  <a data-url="http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/" data-id="aki786vigkifcppx" data_title="nginx 反向代理谷歌" data_summary="已经有不少人做了类似的站点,大部分都没处理好几个问题...." class="article-share-link">Share</a>
+      
+
+      
+	  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
+	  
+<span>
+更新日期:<time datetime="2014-11-02T12:58:51.000Z" itemprop="dateModified">2014 11月 2</time>
+</span>
+
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2014/08/20/windows-penetration-and-provide-the-right-skills-summary/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Windows渗透与提权技巧汇总</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+<!-- 多说评论框 start -->
+
+<!-- 多说评论框 end -->
+</section>
+        
+          
+<aside id="sidebar">
+
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title">ABOUT ME</h3>
+  <ul class="widget about-me">
+    
+    <li><img class="author" title="About me" src="http://www.gravatar.com/avatar/5ba302d74468e44e87e1e1fd94b127fa?s=180" /></li>
+    
+    
+    <li>励志成为包工头的搬砖者</li>
+    
+  </ul>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/openwrt/">openwrt</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/折腾/">折腾</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/渗透/">渗透</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/linux/" style="font-size: 20.00px; color: #1db400;">linux</a><a href="/tags/mac/" style="font-size: 15.33px; color: #5dbe94;">mac</a><a href="/tags/mysql/" style="font-size: 13.00px; color: #7dc3de;">mysql</a><a href="/tags/nginx/" style="font-size: 13.00px; color: #7dc3de;">nginx</a><a href="/tags/oracle/" style="font-size: 15.33px; color: #5dbe94;">oracle</a><a href="/tags/python/" style="font-size: 17.67px; color: #3db94a;">python</a><a href="/tags/zmap/" style="font-size: 13.00px; color: #7dc3de;">zmap</a><a href="/tags/神器/" style="font-size: 20.00px; color: #1db400;">神器</a>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">archive</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">January 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+
+</aside>
+
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 sqzr<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and Theme by <a href="https://github.com/howiefh/hexo-theme-landscape-f" target="_blank" title="Landscape-F">Landscape-F</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+
+<!-- 多说公共JS代码 end -->
+
+<!-- 百度分享 start -->
+
+<!-- 百度分享 end -->
+
+<!--
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+-->
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<div class="bottom-btn">
+
+	<a class="icon-gotop" href="javascript:void(0)" title="返回顶部"></a>
+	<script src="/js/gotop.js" type="text/javascript"></script>
+
+	<!--
+	<script src="/js/gotop.js"></script>
+	-->
+
+
+</div>
+<script src="/js/toc_aside_toggle.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

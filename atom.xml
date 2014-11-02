@@ -4,7 +4,7 @@
   <subtitle><![CDATA[记录学习过程中的点点滴滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://sqzr.github.io/"/>
-  <updated>2014-10-30T14:42:45.234Z</updated>
+  <updated>2014-11-02T12:59:06.129Z</updated>
   <id>http://sqzr.github.io/</id>
   
   <author>
@@ -13,6 +13,57 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[nginx 反向代理谷歌]]></title>
+    <link href="http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/"/>
+    <id>http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/</id>
+    <published>2014-11-02T11:56:03.000Z</published>
+    <updated>2014-11-02T12:58:51.000Z</updated>
+    <content type="html"><![CDATA[<p>已经有不少人做了类似的站点,大部分都没处理好几个问题..比如谷歌的一些图片和js放在<code>ssl.gstatic.com</code>这个域名上,虽然没加载出来也不会对搜索有什么影响,但看着chrome一直转圈,非常不爽。<br>一个处理的比较好的网站<a href="http://wen.lu/" target="_blank" rel="external">wen.lu</a>,不管是速度还是各方面都比较好.. 但缺点就是人用的比较多,偶尔会出现要输验证码的情况,花了一天的时间,自己折腾了下反向代理谷歌。</p>
+<h2 id="nginx安装">nginx安装</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd /tmp</div><div class="line">git clone git://github.com/yaoweibin/ngx_http_substitutions_filter_module.git # nginx 的过滤器模块(比http_sub_module更加灵活)</div><div class="line">wget http://nginx.org/download/nginx-1.7.7.tar.gz</div><div class="line">tar -xzvf nginx-1.7.7.tar.gz</div><div class="line">cd /tmp/nginx-1.7.7</div><div class="line">./configure \</div><div class="line">-<span class="ruby">-prefix=<span class="regexp">/www/wdlinux</span><span class="regexp">/nginx \ # 安装位置</span></span></div><div class="line">-<span class="ruby">-with-http_ssl_module \</span></div><div class="line">-<span class="ruby">-with-http_sub_module \</span></div><div class="line">-<span class="ruby">-with-http_gzip_static_module \</span></div><div class="line">-<span class="ruby">-with-http_stub_status_module \</span></div><div class="line">-<span class="ruby">-add-<span class="class"><span class="keyword">module</span>=/<span class="title">tmp</span>/<span class="title">ngx_http_substitutions_filter_module</span> <span class="comment"># 添加nginx过滤器模块</span></span></span></div><div class="line">make & make install</div></pre></td></tr></table></figure>
+
+<p>安装上面的步骤安装好nginx,如果中途遇到什么报错,请google。<br><a id="more"></a></p>
+<hr>
+<h2 id="配置反向代理">配置反向代理</h2>
+<h3 id="配置文件">配置文件</h3>
+<p>直接上配置文件:  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="title">server</span> {</div><div class="line">    <span class="title">listen</span> <span class="number">443</span>;</div><div class="line">    <span class="title">server_name</span> sqzr.cc;</div><div class="line">    <span class="title">ssl</span> <span class="built_in">on</span>;</div><div class="line">    <span class="title">ssl_certificate</span> xxx.crt; <span class="comment"># crt 位置</span></div><div class="line">    <span class="title">ssl_certificate_key</span> xxx.key; <span class="comment"># key 位置</span></div><div class="line"></div><div class="line">    <span class="title">location</span> / {</div><div class="line">        <span class="comment"># 反向代理缓存配置</span></div><div class="line">        <span class="title">proxy_cache_key</span> <span class="variable">$scheme</span>://<span class="variable">$host</span><span class="variable">$request_uri</span>;</div><div class="line">        <span class="title">proxy_temp_path</span> /home/sqzrproxy_cache_tmp;</div><div class="line">        <span class="title">proxy_cache_path</span> /home/sqzrproxy_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=sqzrproxy:<span class="number">20m</span> inactive=<span class="number">10d</span> max_size=<span class="number">2g</span>;</div><div class="line">        <span class="title">proxy_cache</span> sqzrproxy;</div><div class="line">        <span class="title">proxy_cache_valid</span> <span class="number">200</span> <span class="number">302</span> <span class="number">24h</span>;</div><div class="line">        <span class="title">proxy_cache_valid</span> <span class="number">404</span> <span class="number">1m</span>;</div><div class="line">        <span class="comment"># end 反向代理缓存配置</span></div><div class="line">        <span class="title">expires</span> <span class="number">30d</span>;   <span class="comment"># 用户游览器缓存时间</span></div><div class="line">        <span class="title">proxy_redirect</span> <span class="url">https://www.google.com/</span> /;</div><div class="line">        <span class="title">proxy_cookie_domain</span> google.com sqzr.cc;</div><div class="line">        <span class="title">proxy_pass</span> <span class="url">http://173.194.38.69</span>; <span class="comment"># 反代的google一个ip</span></div><div class="line">        <span class="title">proxy_set_header</span> Accept-Encoding <span class="string">""</span>;</div><div class="line">        <span class="title">proxy_set_header</span> User-Agent <span class="variable">$http_user_agent</span>;</div><div class="line">        <span class="title">proxy_set_header</span> Accept-Language <span class="string">"zh-CN"</span>;</div><div class="line">        <span class="comment">#proxy_set_header Cookie "PREF=ID=047808f19f6de346:U=0f62f33dd8549d11:FF=2:LD=zh-CN:NW=1:TM=1325338577:LM=1332142444:GM=1:SG=2:S=rE0SyJh2w1IQ-Maw"; # 使用此cookie 谷歌在搜索结果打开的时候会弹出新窗口</span></div><div class="line">        <span class="title">proxy_set_header</span> Cookie <span class="string">"PREF=ID=a55d9a4143345dbb:FF=0:TM=1414914150:LM=1414914150:S=Sm6aRXOASTr7rVM9;NID=67=lFnfhba9BOH4rXNaxA0ieI_XSHv3Mqu9scHN-Byu5sgdy2DAtb_SfC8XVYJAtREoKDJk3M54tGBZK1cCM0TGkJ_yM7Eqrxk2GVGnxJ87V1yUIIRs4ZFAmh2xlIHn1pug;"</span>; <span class="comment"># 使用此cookie 搜索的时候谷歌用ajax加载结果(无刷新页面) 谷歌在搜索结果打开的时候不会弹出新窗口</span></div><div class="line">        <span class="comment"># 关键字替换</span></div><div class="line">        <span class="title">subs_filter_types</span> text/css text/xml text/javascript; <span class="comment"># 过滤类型</span></div><div class="line">        <span class="title">subs_filter</span> ssl.gstatic.com sqzr.cc; <span class="comment"># google会加载ssl.gstatic.com的几个资源和文件,都是在gb目录下,下面反代这个地址</span></div><div class="line">        <span class="title">subs_filter</span> www.google.com sqzr.cc;</div><div class="line">        <span class="comment"># end 关键字替换</span></div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="comment"># 反代ssl.gstatic.com</span></div><div class="line">    <span class="title">location</span> /gb {</div><div class="line">        <span class="comment"># 随便写了下,自己没使用自己的服务器来反代</span></div><div class="line">        <span class="title">proxy_pass</span> <span class="url">http://ssl.gstatic.com/gb/</span>;</div><div class="line">        <span class="title">proxy_set_header</span> Accept-Encoding <span class="string">""</span>;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="title">server</span> {</div><div class="line">    <span class="title">listen</span> <span class="number">80</span>;</div><div class="line">    <span class="title">server_name</span> sqzr.cc;</div><div class="line">    <span class="title">rewrite</span><span class="regexp"> ^(.*)</span> <span class="url">https://google.sqzr.cc$1</span> <span class="built_in">permanent</span>; <span class="comment"># 强制使用https</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="使用七牛云代替gstatic">使用七牛云代替gstatic</h3>
+<p>能不反代的地址尽量不要反代,比如一些常年不变的图片,可以直接就缓存到服务器上。<br><code>ssl.gstatic.com</code>域上的几个资源就这样,可以用七牛云提供的镜像功能来缓存到七牛云上。<br><img src="//dn-sqzr.qbox.me/七牛云设置镜像.png" alt="设置镜像站点"><br>默认七牛给的域名不支持https,绑定一个他们分配的：<br><img src="//dn-sqzr.qbox.me/绑定支持https的域名.png" alt="绑定支持https的域名"><br>修改nginx中的关键词替换:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">subs_filter ssl.gstatic.<span class="keyword">com</span> dn-xxx.qbox.<span class="keyword">me</span>;</div></pre></td></tr></table></figure>
+
+<p>访问一次,就自动缓存到七牛云的服务器上了:<br><img src="//dn-sqzr.qbox.me/缓存结果.png" alt="缓存结果"></p>
+<h3 id="一些细节问题">一些细节问题</h3>
+<ol>
+<li>在网上看到很多人说无法成功的替换<code>ssl.gstatic.com</code>这个域名,之前我也遇到过,折腾了一天才发现<code>proxy_pass http://173.194.38.69</code> 某些地址可以修改成功,有些不可以(不知道原因,希望懂的能指导指导)  </li>
+<li>google.com下的<code>/textinputassistant/tia.png</code>无法替换,也和上个问题一样,有些ip可以有些不行</li>
+</ol>
+<hr>
+<h2 id="没解决的问题">没解决的问题</h2>
+<p>这样反代下来还是有几个问题没解决,如果使用第一个cookie反代google(用新页面打开搜索结果),搜索不了几次就会出现:<br><img src="//dn-sqzr.qbox.me/google反代提示.png" alt="google反代提示"><br>使用无刷新搜索的那个cookie就不会出来(因为整体页面没刷新,没加载,如果在里面切换到图片搜索再切换回来,一样会出现)<br>希望各位大神能指导指导</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="http://www.v2ex.com/t/126028" target="_blank" rel="external">分享一下我的 Nginx 反向代理 Google 以及草榴等的参数配置</a></li>
+<li><a href="http://blog.linuxeye.com/399.html" target="_blank" rel="external">Nginx反向代理Google</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>已经有不少人做了类似的站点,大部分都没处理好几个问题..比如谷歌的一些图片和js放在<code>ssl.gstatic.com</code>这个域名上,虽然没加载出来也不会对搜索有什么影响,但看着chrome一直转圈,非常不爽。<br>一个处理的比较好的网站<a href="http://wen.lu/" target="_blank" rel="external">wen.lu</a>,不管是速度还是各方面都比较好.. 但缺点就是人用的比较多,偶尔会出现要输验证码的情况,花了一天的时间,自己折腾了下反向代理谷歌。</p>
+<h2 id="nginx安装">nginx安装</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd /tmp</div><div class="line">git clone git://github.com/yaoweibin/ngx_http_substitutions_filter_module.git # nginx 的过滤器模块(比http_sub_module更加灵活)</div><div class="line">wget http://nginx.org/download/nginx-1.7.7.tar.gz</div><div class="line">tar -xzvf nginx-1.7.7.tar.gz</div><div class="line">cd /tmp/nginx-1.7.7</div><div class="line">./configure \</div><div class="line">-<span class="ruby">-prefix=<span class="regexp">/www/wdlinux</span><span class="regexp">/nginx \ # 安装位置</span></span></div><div class="line">-<span class="ruby">-with-http_ssl_module \</span></div><div class="line">-<span class="ruby">-with-http_sub_module \</span></div><div class="line">-<span class="ruby">-with-http_gzip_static_module \</span></div><div class="line">-<span class="ruby">-with-http_stub_status_module \</span></div><div class="line">-<span class="ruby">-add-<span class="class"><span class="keyword">module</span>=/<span class="title">tmp</span>/<span class="title">ngx_http_substitutions_filter_module</span> <span class="comment"># 添加nginx过滤器模块</span></span></span></div><div class="line">make & make install</div></pre></td></tr></table></figure>
+
+<p>安装上面的步骤安装好nginx,如果中途遇到什么报错,请google。<br>]]>
+    
+    </summary>
+    
+      <category term="nginx" scheme="http://sqzr.github.io/tags/nginx/"/>
+    
+      <category term="折腾" scheme="http://sqzr.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Windows渗透与提权技巧汇总]]></title>
@@ -1142,44 +1193,6 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
 ]]></content>
     <summary type="html">
     <![CDATA[<p>搜狗拼音输入法是2006年6月由搜狐（SOHU）公司推出的一款<code>Windows</code>平台下的汉字拼音输入法。搜狗拼音输入法是基于搜索引擎技术的、特别适合网民使用的、新一代的输入法产品，用户可以通过互联网备份自己的个性化词库和配置信息。目前与深度<code>Deepin</code>合作,开发了基于<code>fcitx</code>的搜狗输入法,不论是在词库还是在用户体验上,都比较适合中国人,自己在安装的过程中遇到了不少的问题.总结下自己成功安装的办法:<br>]]>
-    
-    </summary>
-    
-      <category term="linux" scheme="http://sqzr.github.io/tags/linux/"/>
-    
-      <category term="折腾" scheme="http://sqzr.github.io/categories/%E6%8A%98%E8%85%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[linux服务器安全系列 - SeNginx + PHP + Mysql的安装]]></title>
-    <link href="http://sqzr.github.io//blog/2013/11/11/linuxfu-wu-qi-an-quan-xi-lie-nginx/"/>
-    <id>http://sqzr.github.io//blog/2013/11/11/linuxfu-wu-qi-an-quan-xi-lie-nginx/</id>
-    <published>2013-11-11T11:26:00.000Z</published>
-    <updated>2014-10-30T13:39:03.000Z</updated>
-    <content type="html"><![CDATA[<p>先谈谈senginx,来自官方的资料:SEnginx（Security Enhanced NGINX）开源项目由东软集团网络安全事业部（security.neusoft.com）发起。SEnginx是一个基于<code>NGINX</code>的<code>WAF</code>(Web Application Firewall)服务器，能以Web Server或HTTP反向代理两种模式进行部署。SEnginx继承了NGINX的全部功能，集成了多种第三方Web安全（<code>ModSecurity</code>和<code>Naxsi</code>）和<code>负载均衡</code>模块，并新研发了多种Web安全功能。<br>参考:<a href="http://www.senginx.org/cn/index.php/%E9%A6%96%E9%A1%B5" target="_blank" rel="external">Senginx</a><br><a id="more"></a>  </p>
-<hr>
-<h2 id="SeNginx安装">SeNginx安装</h2>
-<p>安装过程非常简单,和其他软件的源代码编译并无区别:  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http:<span class="comment">//senginx.org/download/senginx-1.4.3.tar.gz</span></div><div class="line">tar -xzvf senginx-<span class="number">1.4</span>.<span class="number">3</span>.tar.gz</div><div class="line">.<span class="regexp">/se-configure.sh --prefix=/</span>opt<span class="regexp">/nginx  #/</span>opt<span class="regexp">/nginx 是你安装的位置,在ubuntu下我比较习惯安装到/</span>opt下,而centos则比较习惯安装在<span class="regexp">/usr/</span>local下面</div><div class="line">make</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
-
-<p>就这几步,即可编译安装好senginx,安装完成后,首先执行:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/opt/</span>nginx<span class="regexp">/sbin/</span>nginx</div></pre></td></tr></table></figure>
-
-<p>执行以上命令两次,第一次执行是创建目录以及初始化环境,第二次执行就会开启nginx服务,监听80端口</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span> failed (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span> failed (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span> failed (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span> failed (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] bind() <span class="keyword">to</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">80</span> failed (<span class="number">98</span>: Address already <span class="keyword">in</span> <span class="keyword">use</span>)</div><div class="line">nginx: [emerg] still could <span class="keyword">not</span> bind()</div></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="PHP以及MYSQL的安装">PHP以及MYSQL的安装</h2>
-<p>这两软件就在各自官方下载,你可以选择采用源代码编译,或者是通过<code>apt-get</code>或者<code>yum</code>的方式安装,我的环境是<code>Ubuntu 13.10</code>,采用apt-get 进行安装:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get <span class="operator"><span class="keyword">install</span> php5-cgi php5-cli mysql-<span class="keyword">server</span>-<span class="number">5.5</span> spawn-fcgi</span></div></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="基本配置">基本配置</h2>
-<p>….更新中</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>先谈谈senginx,来自官方的资料:SEnginx（Security Enhanced NGINX）开源项目由东软集团网络安全事业部（security.neusoft.com）发起。SEnginx是一个基于<code>NGINX</code>的<code>WAF</code>(Web Application Firewall)服务器，能以Web Server或HTTP反向代理两种模式进行部署。SEnginx继承了NGINX的全部功能，集成了多种第三方Web安全（<code>ModSecurity</code>和<code>Naxsi</code>）和<code>负载均衡</code>模块，并新研发了多种Web安全功能。<br>参考:<a href="http://www.senginx.org/cn/index.php/%E9%A6%96%E9%A1%B5" target="_blank" rel="external">Senginx</a><br>]]>
     
     </summary>
     

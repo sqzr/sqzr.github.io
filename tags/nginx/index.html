@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>openwrt 使用密匙登录管理 | sqzr&#39;s blog</title>
+  <title>Tag: nginx | sqzr&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="励志成为包工头的搬砖者">
-<meta property="og:type" content="article">
-<meta property="og:title" content="openwrt 使用密匙登录管理">
-<meta property="og:url" content="http://sqzr.github.io//blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="sqzr's blog">
+<meta property="og:url" content="http://sqzr.github.io/tags/nginx/">
 <meta property="og:site_name" content="sqzr's blog">
 <meta property="og:description" content="励志成为包工头的搬砖者">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="openwrt 使用密匙登录管理">
+<meta name="twitter:title" content="sqzr's blog">
 <meta name="twitter:description" content="励志成为包工头的搬砖者">
 
   
@@ -75,17 +75,19 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="Post-openwrt-shi-yong-mi-chi-deng-lu-guan-li" class="article article-type-Post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-nginx-reverse-proxy-google" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
-<a href="/blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/" class="article-date">
-  <time datetime="2014-04-21T03:27:00.000Z" itemprop="datePublished">2014 4月 21</time>
+<a href="/blog/2014/11/02/nginx-reverse-proxy-google/" class="article-date">
+  <time datetime="2014-11-02T11:56:03.000Z" itemprop="datePublished">2014 11月 2</time>
 </a>
 
 
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/openwrt/">openwrt</a>
+    <a class="article-category-link" href="/categories/折腾/">折腾</a>
   </div>
 
   </div>
@@ -95,8 +97,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      openwrt 使用密匙登录管理
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2014/11/02/nginx-reverse-proxy-google/">nginx 反向代理谷歌</a>
     </h1>
   
 
@@ -104,73 +106,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-		
-		<div id="toc" class="toc-article">
-			<h2 class="toc-title"><span>文章目录</span></h2>
-		
-			
-		
-		</div>
-		
-        <p>SSH使用密钥登录，不仅安全，而且更方便。sshd在~/.ssh/authorized_keys中加入公钥即可。而OpenWrt使用dropbear作为服务端， ~/.ssh/authorized_keys 并不生效。其实，dropbear的公钥存储文件是600权限的 /etc/dropbear/authorized_keys 文件，只需将公钥加入此文件即可。至于其它，与sshd类似。  </p>
-<hr>
-<p>首先创建密匙文件,并赋予600权限:  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> /etc/dropbear && <span class="keyword">vi</span> authorized_keys</div><div class="line">chmod <span class="number">0600</span> /etc/dropbear/authorized_keys</div></pre></td></tr></table></figure>
+        <p>已经有不少人做了类似的站点,大部分都没处理好几个问题..比如谷歌的一些图片和js放在<code>ssl.gstatic.com</code>这个域名上,虽然没加载出来也不会对搜索有什么影响,但看着chrome一直转圈,非常不爽。<br>一个处理的比较好的网站<a href="http://wen.lu/" target="_blank" rel="external">wen.lu</a>,不管是速度还是各方面都比较好.. 但缺点就是人用的比较多,偶尔会出现要输验证码的情况,花了一天的时间,自己折腾了下反向代理谷歌。</p>
+<h2 id="nginx安装">nginx安装</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">cd /tmp</div><div class="line">git clone git://github.com/yaoweibin/ngx_http_substitutions_filter_module.git # nginx 的过滤器模块(比http_sub_module更加灵活)</div><div class="line">wget http://nginx.org/download/nginx-1.7.7.tar.gz</div><div class="line">tar -xzvf nginx-1.7.7.tar.gz</div><div class="line">cd /tmp/nginx-1.7.7</div><div class="line">./configure \</div><div class="line">-<span class="ruby">-prefix=<span class="regexp">/www/wdlinux</span><span class="regexp">/nginx \ # 安装位置</span></span></div><div class="line">-<span class="ruby">-with-http_ssl_module \</span></div><div class="line">-<span class="ruby">-with-http_sub_module \</span></div><div class="line">-<span class="ruby">-with-http_gzip_static_module \</span></div><div class="line">-<span class="ruby">-with-http_stub_status_module \</span></div><div class="line">-<span class="ruby">-add-<span class="class"><span class="keyword">module</span>=/<span class="title">tmp</span>/<span class="title">ngx_http_substitutions_filter_module</span> <span class="comment"># 添加nginx过滤器模块</span></span></span></div><div class="line">make & make install</div></pre></td></tr></table></figure>
 
-<a id="more"></a>
-
-<p>使用uci查看的当前dropbear配置:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uci <span class="literal">show</span> dropbear</div></pre></td></tr></table></figure>
-
-<p>系统返回:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dropbear.<span class="property">@dropbear</span>[<span class="number">0</span>]=dropbear</div><div class="line">dropbear.<span class="property">@dropbear</span>[<span class="number">0</span>].RootPasswordAuth=<span class="literal">on</span></div><div class="line">dropbear.<span class="property">@dropbear</span>[<span class="number">0</span>].Port=<span class="number">22</span></div><div class="line">dropbear.<span class="property">@dropbear</span>[<span class="number">0</span>].PasswordAuth=<span class="literal">on</span></div></pre></td></tr></table></figure>
-
-<p>使用uci关闭密码登陆:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">uci</span> set dropbear.<span class="variable">@dropbear</span>[<span class="number">0</span>].PasswordAuth=<span class="built_in">off</span></div><div class="line">uci commit dropbear // 提交修改</div></pre></td></tr></table></figure>
-
-<p>重启服务:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/<span class="keyword">init</span>.d/dropbear restart</div></pre></td></tr></table></figure>
-
-
+<p>安装上面的步骤安装好nginx,如果中途遇到什么报错,请google。<br>
+        
+          <p class="article-more-link">
+            <a href="/blog/2014/11/02/nginx-reverse-proxy-google/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
 	  
-	  <a data-url="http://sqzr.github.io//blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/" data-id="tc1ozcc9qahzhh1x" data_title="openwrt 使用密匙登录管理" data_summary="SSH使用密钥登录，不仅安全，而且更方便。sshd在~..." class="article-share-link">Share</a>
+	  <a data-url="http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/" data-id="aki786vigkifcppx" data_title="nginx 反向代理谷歌" data_summary="已经有不少人做了类似的站点,大部分都没处理好几个问题...." class="article-share-link">Share</a>
       
 
       
 	  
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
 	  
 <span>
-更新日期:<time datetime="2014-10-30T12:52:04.000Z" itemprop="dateModified">2014 10月 30</time>
+更新日期:<time datetime="2014-11-02T12:58:51.000Z" itemprop="dateModified">2014 11月 2</time>
 </span>
 
 
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2014/06/08/shen-tou-ji-qiao-zhi-ssh-pian/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          渗透技巧之SSH篇
-        
-      </div>
-    </a>
-  
-  
-    <a href="/blog/2014/03/29/chp-dot-exe-yin-cang-guichuang-kou-de-xiao-cheng-xu/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">CHP.EXE - 隐藏GUI窗口的小程序</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -179,6 +144,9 @@
 <!-- 多说评论框 start -->
 
 <!-- 多说评论框 end -->
+
+  
+  
 </section>
         
           
