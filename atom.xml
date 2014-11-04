@@ -3,9 +3,9 @@
   <title><![CDATA[sqzr's blog]]></title>
   <subtitle><![CDATA[记录学习过程中的点点滴滴]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://sqzr.github.io/"/>
-  <updated>2014-11-02T13:26:50.404Z</updated>
-  <id>http://sqzr.github.io/</id>
+  <link href="https://sqzr.cc/"/>
+  <updated>2014-11-04T06:47:21.073Z</updated>
+  <id>https://sqzr.cc/</id>
   
   <author>
     <name><![CDATA[sqzr]]></name>
@@ -16,8 +16,8 @@
   
   <entry>
     <title><![CDATA[nginx 反向代理谷歌]]></title>
-    <link href="http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/"/>
-    <id>http://sqzr.github.io//blog/2014/11/02/nginx-reverse-proxy-google/</id>
+    <link href="https://sqzr.cc//blog/2014/11/02/nginx-reverse-proxy-google/"/>
+    <id>https://sqzr.cc//blog/2014/11/02/nginx-reverse-proxy-google/</id>
     <published>2014-11-02T11:56:03.000Z</published>
     <updated>2014-11-02T13:03:39.000Z</updated>
     <content type="html"><![CDATA[<p>已经有不少人做了类似的站点,大部分都没处理好几个问题..比如谷歌的一些图片和js放在<code>ssl.gstatic.com</code>这个域名上,虽然没加载出来也不会对搜索有什么影响,但看着chrome一直转圈,非常不爽。<br>一个处理的比较好的网站<a href="http://wen.lu/" target="_blank" rel="external">wen.lu</a>,不管是速度还是各方面都比较好.. 但缺点就是人用的比较多,偶尔会出现要输验证码的情况,花了一天的时间,自己折腾了下反向代理谷歌。</p>
@@ -59,16 +59,16 @@
     
     </summary>
     
-      <category term="nginx" scheme="http://sqzr.github.io/tags/nginx/"/>
+      <category term="nginx" scheme="https://sqzr.cc/tags/nginx/"/>
     
-      <category term="折腾" scheme="http://sqzr.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+      <category term="折腾" scheme="https://sqzr.cc/categories/%E6%8A%98%E8%85%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Windows渗透与提权技巧汇总]]></title>
-    <link href="http://sqzr.github.io//blog/2014/08/20/windows-penetration-and-provide-the-right-skills-summary/"/>
-    <id>http://sqzr.github.io//blog/2014/08/20/windows-penetration-and-provide-the-right-skills-summary/</id>
+    <link href="https://sqzr.cc//blog/2014/08/20/windows-penetration-and-provide-the-right-skills-summary/"/>
+    <id>https://sqzr.cc//blog/2014/08/20/windows-penetration-and-provide-the-right-skills-summary/</id>
     <published>2014-08-20T04:59:00.000Z</published>
     <updated>2014-10-30T11:43:41.000Z</updated>
     <content type="html"><![CDATA[<h2 id="旁站路径问题">旁站路径问题</h2>
@@ -197,14 +197,14 @@
     
     </summary>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[编译PcShare远程管理软件]]></title>
-    <link href="http://sqzr.github.io//blog/2014/08/06/bian-yi-pcshare-yuan-cheng-kong-zhi-ruan-jian/"/>
-    <id>http://sqzr.github.io//blog/2014/08/06/bian-yi-pcshare-yuan-cheng-kong-zhi-ruan-jian/</id>
+    <link href="https://sqzr.cc//blog/2014/08/06/bian-yi-pcshare-yuan-cheng-kong-zhi-ruan-jian/"/>
+    <id>https://sqzr.cc//blog/2014/08/06/bian-yi-pcshare-yuan-cheng-kong-zhi-ruan-jian/</id>
     <published>2014-08-05T16:03:00.000Z</published>
     <updated>2014-10-30T12:38:42.000Z</updated>
     <content type="html"><![CDATA[<p><code>PcShare</code>是一款功能强大的远程管理软件，可以在内网、外网任意位置随意管理需要的远程主机，有超强的隐藏和自我修复等功能。<br>在<a href="http://www.freebuf.com/tools/39500.html" target="_blank" rel="external">freebuf</a>,看到这套源码,写下编译的经过。<br><a id="more"></a></p>
@@ -268,14 +268,14 @@
     
     </summary>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Oracle拖库指南]]></title>
-    <link href="http://sqzr.github.io//blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/"/>
-    <id>http://sqzr.github.io//blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/</id>
+    <link href="https://sqzr.cc//blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/"/>
+    <id>https://sqzr.cc//blog/2014/07/19/oracle-xia-tuo-ku-zhi-lan/</id>
     <published>2014-07-19T01:10:00.000Z</published>
     <updated>2014-10-30T12:41:49.000Z</updated>
     <content type="html"><![CDATA[<h2 id="常用sql语句">常用sql语句</h2>
@@ -360,16 +360,16 @@
     
     </summary>
     
-      <category term="oracle" scheme="http://sqzr.github.io/tags/oracle/"/>
+      <category term="oracle" scheme="https://sqzr.cc/tags/oracle/"/>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Zmap 使用文档]]></title>
-    <link href="http://sqzr.github.io//blog/2014/07/08/zmap-shi-yong-wen-dang/"/>
-    <id>http://sqzr.github.io//blog/2014/07/08/zmap-shi-yong-wen-dang/</id>
+    <link href="https://sqzr.cc//blog/2014/07/08/zmap-shi-yong-wen-dang/"/>
+    <id>https://sqzr.cc//blog/2014/07/08/zmap-shi-yong-wen-dang/</id>
     <published>2014-07-08T00:56:00.000Z</published>
     <updated>2014-10-30T12:49:42.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Zmap_入门">Zmap 入门</h2>
@@ -417,16 +417,16 @@
     
     </summary>
     
-      <category term="zmap" scheme="http://sqzr.github.io/tags/zmap/"/>
+      <category term="zmap" scheme="https://sqzr.cc/tags/zmap/"/>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ngrok 内网穿透神器]]></title>
-    <link href="http://sqzr.github.io//blog/2014/06/28/ngrok_nei_wang_chuan_tou_shen_qi/"/>
-    <id>http://sqzr.github.io//blog/2014/06/28/ngrok_nei_wang_chuan_tou_shen_qi/</id>
+    <link href="https://sqzr.cc//blog/2014/06/28/ngrok_nei_wang_chuan_tou_shen_qi/"/>
+    <id>https://sqzr.cc//blog/2014/06/28/ngrok_nei_wang_chuan_tou_shen_qi/</id>
     <published>2014-06-28T00:56:00.000Z</published>
     <updated>2014-10-30T12:49:04.000Z</updated>
     <content type="html"><![CDATA[<p>由于开发Web项目，经常需要将本地部署的网站让外网能直接访问到，最便捷的做法当然是在ADSL路由器上直接做端口映射，很不幸大部分运营商都屏 蔽了80等常用端口，曾经的做法是在公网一台VPS上架设OpenVPN，将笔记本和VPS连到一个虚拟局域网，再用iptables做端口转发来达到目 的，虽然可行，但速度比较慢，由于线路不稳定造成掉线几率较高。偶然发现还有个叫<code>ngrok</code>的神器专门做了这件事，不但提供了一个在外网能够安全的访问内 网Web主机，还能捕获所有请求的http内容，方便调试，甚至还支持tcp层端口映射，不局限于某一特定的服务。支持Mac OS X，Linux，Windows平台。<br><a id="more"></a></p>
@@ -468,16 +468,16 @@ tunnels:
     
     </summary>
     
-      <category term="神器" scheme="http://sqzr.github.io/tags/%E7%A5%9E%E5%99%A8/"/>
+      <category term="神器" scheme="https://sqzr.cc/tags/%E7%A5%9E%E5%99%A8/"/>
     
-      <category term="折腾" scheme="http://sqzr.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+      <category term="折腾" scheme="https://sqzr.cc/categories/%E6%8A%98%E8%85%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[渗透技巧之SSH篇]]></title>
-    <link href="http://sqzr.github.io//blog/2014/06/08/shen-tou-ji-qiao-zhi-ssh-pian/"/>
-    <id>http://sqzr.github.io//blog/2014/06/08/shen-tou-ji-qiao-zhi-ssh-pian/</id>
+    <link href="https://sqzr.cc//blog/2014/06/08/shen-tou-ji-qiao-zhi-ssh-pian/"/>
+    <id>https://sqzr.cc//blog/2014/06/08/shen-tou-ji-qiao-zhi-ssh-pian/</id>
     <published>2014-06-08T01:07:00.000Z</published>
     <updated>2014-10-30T12:50:40.000Z</updated>
     <content type="html"><![CDATA[<p>入侵得到SHELL后，对方防火墙没限制，想快速开放一个可以访问的SSH端口<br>肉鸡上执行:  </p>
@@ -513,14 +513,14 @@ tunnels:
     
     </summary>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[openwrt 使用密匙登录管理]]></title>
-    <link href="http://sqzr.github.io//blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/"/>
-    <id>http://sqzr.github.io//blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/</id>
+    <link href="https://sqzr.cc//blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/"/>
+    <id>https://sqzr.cc//blog/2014/04/21/openwrt-shi-yong-mi-chi-deng-lu-guan-li/</id>
     <published>2014-04-21T03:27:00.000Z</published>
     <updated>2014-10-30T12:52:04.000Z</updated>
     <content type="html"><![CDATA[<p>SSH使用密钥登录，不仅安全，而且更方便。sshd在~/.ssh/authorized_keys中加入公钥即可。而OpenWrt使用dropbear作为服务端， ~/.ssh/authorized_keys 并不生效。其实，dropbear的公钥存储文件是600权限的 /etc/dropbear/authorized_keys 文件，只需将公钥加入此文件即可。至于其它，与sshd类似。  </p>
@@ -553,14 +553,14 @@ tunnels:
     
     </summary>
     
-      <category term="openwrt" scheme="http://sqzr.github.io/categories/openwrt/"/>
+      <category term="openwrt" scheme="https://sqzr.cc/categories/openwrt/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[CHP.EXE - 隐藏GUI窗口的小程序]]></title>
-    <link href="http://sqzr.github.io//blog/2014/03/29/chp-dot-exe-yin-cang-guichuang-kou-de-xiao-cheng-xu/"/>
-    <id>http://sqzr.github.io//blog/2014/03/29/chp-dot-exe-yin-cang-guichuang-kou-de-xiao-cheng-xu/</id>
+    <link href="https://sqzr.cc//blog/2014/03/29/chp-dot-exe-yin-cang-guichuang-kou-de-xiao-cheng-xu/"/>
+    <id>https://sqzr.cc//blog/2014/03/29/chp-dot-exe-yin-cang-guichuang-kou-de-xiao-cheng-xu/</id>
     <published>2014-03-29T11:24:00.000Z</published>
     <updated>2014-10-30T12:55:14.000Z</updated>
     <content type="html"><![CDATA[<p>不知道大家有没有想我一样的困扰过,提权到一台服务器后,可能拿来<code>挖矿</code>、<code>架设代理服务器</code>,等等的操作。就拿我今天遇到的问题来说吧,想用<a href="https://github.com/clowwindy/shadowsocks" target="_blank" rel="external">shadowsocks</a>来架设一个隧道代理服务器,在尝试过很多代理架设软件后,我选择了这款软件,跨平台强.<strong>windows、linux、mac、android、ios、openwrt</strong>都可以运行他。之前的一篇文章<a href="http://sqzr.cc/blog/2013/11/09/openwrt-shi-xian-socket5dai-li-tou-ming-hua-yi-ji-ke-lu-you/" target="_blank" rel="external">openwrt 实现socket5代理透明化以及可路由</a>正是用到了他。作者比较重点更新node.js版,前几个版本上就加入了<code>udp代理</code>的功能,于是我选择了node.js版,在服务器上装好node.js环境后,在cmd下运行<code>ssserver</code>来启动服务端工作。开始工作的时候,并不能关闭cmd窗口,再网上找了很多办法,让他能在后台隐藏运行,最后发现一个小工具,chp非常好用小巧。<br><a id="more"></a></p>
@@ -591,16 +591,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="神器" scheme="http://sqzr.github.io/tags/%E7%A5%9E%E5%99%A8/"/>
+      <category term="神器" scheme="https://sqzr.cc/tags/%E7%A5%9E%E5%99%A8/"/>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[WinRar 4.20 – 文件扩展名欺骗(附视频演示)]]></title>
-    <link href="http://sqzr.github.io//blog/2014/03/28/winrar-4-dot-20-wen-jian-kuo-zhan-ming-qi-pian-fu-shi-pin-yan-shi/"/>
-    <id>http://sqzr.github.io//blog/2014/03/28/winrar-4-dot-20-wen-jian-kuo-zhan-ming-qi-pian-fu-shi-pin-yan-shi/</id>
+    <link href="https://sqzr.cc//blog/2014/03/28/winrar-4-dot-20-wen-jian-kuo-zhan-ming-qi-pian-fu-shi-pin-yan-shi/"/>
+    <id>https://sqzr.cc//blog/2014/03/28/winrar-4-dot-20-wen-jian-kuo-zhan-ming-qi-pian-fu-shi-pin-yan-shi/</id>
     <published>2014-03-28T05:44:00.000Z</published>
     <updated>2014-10-30T12:56:46.000Z</updated>
     <content type="html"><![CDATA[<h2 id="介绍">介绍</h2>
@@ -626,14 +626,14 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[西域论坛用户暴力破解脚本(python)]]></title>
-    <link href="http://sqzr.github.io//blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/"/>
-    <id>http://sqzr.github.io//blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/</id>
+    <link href="https://sqzr.cc//blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/"/>
+    <id>https://sqzr.cc//blog/2014/03/04/xi-yu-lun-tan-yong-hu-bao-li-po-jie-jiao-ben-python/</id>
     <published>2014-03-04T10:18:00.000Z</published>
     <updated>2014-10-30T12:59:57.000Z</updated>
     <content type="html"><![CDATA[<p>好象很多社工库都关闭了,要不抽风,要不收费,要不打不开!!蛋疼,有时候实在想查数据,没地方查。还是自己收集点数据在本地用软件来检索方便。在纠结哪里收集点数据的时候,目测到了一个论坛<a href="http://bbs.xiyv.net" target="_blank" rel="external">西域论坛</a>。一看列表,发现数据还不少,但是很大部分都需要金币,发裤子可以得金币,坑爹,我等小菜哪有什么私藏的裤子啊,哈哈。发现这论坛登陆没验证码,自己写个脚本爆破吧.<br><code>脚本写的非常烂,不考虑性能(其实有用多线程,但线程控制写的很烂,加上论坛有安全狗,只有放慢速度),实际还是可用的</code><br><a id="more"></a><br><img src="https://dn-sqzr.qbox.me/QQ20140304-4.png" alt="爆破图">  </p>
@@ -663,16 +663,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="神器" scheme="http://sqzr.github.io/tags/%E7%A5%9E%E5%99%A8/"/>
+      <category term="神器" scheme="https://sqzr.cc/tags/%E7%A5%9E%E5%99%A8/"/>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[渗透中常用的命令(备忘)]]></title>
-    <link href="http://sqzr.github.io//blog/2014/03/02/shen-tou-zhong-chang-yong-de-ming-ling-bei-wang/"/>
-    <id>http://sqzr.github.io//blog/2014/03/02/shen-tou-zhong-chang-yong-de-ming-ling-bei-wang/</id>
+    <link href="https://sqzr.cc//blog/2014/03/02/shen-tou-zhong-chang-yong-de-ming-ling-bei-wang/"/>
+    <id>https://sqzr.cc//blog/2014/03/02/shen-tou-zhong-chang-yong-de-ming-ling-bei-wang/</id>
     <published>2014-03-02T06:25:00.000Z</published>
     <updated>2014-10-30T13:03:59.000Z</updated>
     <content type="html"><![CDATA[<p>文章中并没有提起任何新技术(或者说是未公开的小窍门),都是些已经<code>烂大街</code>的命令了,不过很多命令比较长,也比较实用，以前博客有一篇日志有记录,忘迁移过来就被删除了。在evernote里找到一份备份,就迁移过来吧  </p>
@@ -811,14 +811,14 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[在Mac os x下安装MySQL-python]]></title>
-    <link href="http://sqzr.github.io//blog/2014/01/14/zai-mac-os-xxia-an-zhuang-mysql-python/"/>
-    <id>http://sqzr.github.io//blog/2014/01/14/zai-mac-os-xxia-an-zhuang-mysql-python/</id>
+    <link href="https://sqzr.cc//blog/2014/01/14/zai-mac-os-xxia-an-zhuang-mysql-python/"/>
+    <id>https://sqzr.cc//blog/2014/01/14/zai-mac-os-xxia-an-zhuang-mysql-python/</id>
     <published>2014-01-13T16:39:00.000Z</published>
     <updated>2014-10-30T13:37:07.000Z</updated>
     <content type="html"><![CDATA[<p>MySQLdb是<code>Python</code>连接MySQL的模块,在安装过程中,遇到了点小麻烦,特地记录了下来…  </p>
@@ -858,20 +858,20 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="python" scheme="http://sqzr.github.io/tags/python/"/>
+      <category term="python" scheme="https://sqzr.cc/tags/python/"/>
     
-      <category term="mysql" scheme="http://sqzr.github.io/tags/mysql/"/>
+      <category term="mysql" scheme="https://sqzr.cc/tags/mysql/"/>
     
-      <category term="mac" scheme="http://sqzr.github.io/tags/mac/"/>
+      <category term="mac" scheme="https://sqzr.cc/tags/mac/"/>
     
-      <category term="编程" scheme="http://sqzr.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://sqzr.cc/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[oracle学习笔记 - 用户管理]]></title>
-    <link href="http://sqzr.github.io//blog/2014/01/02/oraclexue-xi-bi-ji-yong-hu-guan-li/"/>
-    <id>http://sqzr.github.io//blog/2014/01/02/oraclexue-xi-bi-ji-yong-hu-guan-li/</id>
+    <link href="https://sqzr.cc//blog/2014/01/02/oraclexue-xi-bi-ji-yong-hu-guan-li/"/>
+    <id>https://sqzr.cc//blog/2014/01/02/oraclexue-xi-bi-ji-yong-hu-guan-li/</id>
     <published>2014-01-02T14:19:00.000Z</published>
     <updated>2014-10-30T13:32:12.000Z</updated>
     <content type="html"><![CDATA[<h2 id="添加用户">添加用户</h2>
@@ -962,16 +962,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="oracle" scheme="http://sqzr.github.io/tags/oracle/"/>
+      <category term="oracle" scheme="https://sqzr.cc/tags/oracle/"/>
     
-      <category term="编程" scheme="http://sqzr.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://sqzr.cc/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ettercap 中文文档]]></title>
-    <link href="http://sqzr.github.io//blog/2013/12/28/ettercap-zhong-wen-wen-dang/"/>
-    <id>http://sqzr.github.io//blog/2013/12/28/ettercap-zhong-wen-wen-dang/</id>
+    <link href="https://sqzr.cc//blog/2013/12/28/ettercap-zhong-wen-wen-dang/"/>
+    <id>https://sqzr.cc//blog/2013/12/28/ettercap-zhong-wen-wen-dang/</id>
     <published>2013-12-28T05:21:00.000Z</published>
     <updated>2014-10-30T13:37:29.000Z</updated>
     <content type="html"><![CDATA[<p>ettercap软件是一套举世闻名的软件，被广发使用与MITM攻击。在网络上已经有非常多的资料了,但都太乱..太杂,导致很多人都无法入手这软件,特别是在命令行下的操作..当初我也是因为如此,才没掌握好这软件..重新学习并且整理了下这软件的资料。<br>测试环境:<code>Mac os x 10.9</code><br>ettercap版本:<code>0.7.6</code> (brew默认安装的版本,我觉得这版本很稳定)<br><a id="more"></a></p>
@@ -996,16 +996,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="神器" scheme="http://sqzr.github.io/tags/%E7%A5%9E%E5%99%A8/"/>
+      <category term="神器" scheme="https://sqzr.cc/tags/%E7%A5%9E%E5%99%A8/"/>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Mac os X 系统显示隐藏文件的办法]]></title>
-    <link href="http://sqzr.github.io//blog/2013/12/24/mac-os-x-xi-tong-xian-shi-yin-cang-wen-jian-de-ban-fa/"/>
-    <id>http://sqzr.github.io//blog/2013/12/24/mac-os-x-xi-tong-xian-shi-yin-cang-wen-jian-de-ban-fa/</id>
+    <link href="https://sqzr.cc//blog/2013/12/24/mac-os-x-xi-tong-xian-shi-yin-cang-wen-jian-de-ban-fa/"/>
+    <id>https://sqzr.cc//blog/2013/12/24/mac-os-x-xi-tong-xian-shi-yin-cang-wen-jian-de-ban-fa/</id>
     <published>2013-12-24T10:06:00.000Z</published>
     <updated>2014-10-30T13:37:55.000Z</updated>
     <content type="html"><![CDATA[<p>对于首次使用 <code>Mac</code> 系统的朋友来说，可能会有点稍微有点不适应，那就是 OS X 里并没有显示和隐藏文件的菜单或者设置。然而，其实在苹果 Mac OS X 操作系统下，隐藏文件是否显示有很多种设置方法，最简单的要算在 Mac 终端输入命令。  </p>
@@ -1027,16 +1027,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="mac" scheme="http://sqzr.github.io/tags/mac/"/>
+      <category term="mac" scheme="https://sqzr.cc/tags/mac/"/>
     
-      <category term="折腾" scheme="http://sqzr.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+      <category term="折腾" scheme="https://sqzr.cc/categories/%E6%8A%98%E8%85%BE/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Python中如何写控制台进度条的整理]]></title>
-    <link href="http://sqzr.github.io//blog/2013/12/21/pythonzhong-ru-he-xie-kong-zhi-tai-jin-du-tiao-de-zheng-li/"/>
-    <id>http://sqzr.github.io//blog/2013/12/21/pythonzhong-ru-he-xie-kong-zhi-tai-jin-du-tiao-de-zheng-li/</id>
+    <link href="https://sqzr.cc//blog/2013/12/21/pythonzhong-ru-he-xie-kong-zhi-tai-jin-du-tiao-de-zheng-li/"/>
+    <id>https://sqzr.cc//blog/2013/12/21/pythonzhong-ru-he-xie-kong-zhi-tai-jin-du-tiao-de-zheng-li/</id>
     <published>2013-12-21T13:32:00.000Z</published>
     <updated>2014-10-30T13:30:28.000Z</updated>
     <content type="html"><![CDATA[<p>在Python写命令行程序中,常会用到进度条,比如下载的进度条,爬虫的进度条…然而对于一些常用的python界面库,都是有进度条组件.比如<code>pyqt</code>,<code>Tkinter</code>,<code>GTK</code>。<br>python有丰富的lib可以完成各种功能,想要做到命令行进度条,可以用<a href="http://pypi.python.org/pypi/progressbar/" target="_blank" rel="external">progressbar</a>类，使用<code>easy_install</code>可以方便的安装这可个类库，其实就一个文件，拿过来放到文件同一个目录下面也直接可以import过来.整理了一下用python自带库和第三方库实现的办法：<br><a id="more"></a></p>
@@ -1061,16 +1061,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="python" scheme="http://sqzr.github.io/tags/python/"/>
+      <category term="python" scheme="https://sqzr.cc/tags/python/"/>
     
-      <category term="编程" scheme="http://sqzr.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://sqzr.cc/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Mac OS X 10.9 Install PyQt5]]></title>
-    <link href="http://sqzr.github.io//blog/2013/12/18/mac-os-x-10-dot-9-install-pyqt5/"/>
-    <id>http://sqzr.github.io//blog/2013/12/18/mac-os-x-10-dot-9-install-pyqt5/</id>
+    <link href="https://sqzr.cc//blog/2013/12/18/mac-os-x-10-dot-9-install-pyqt5/"/>
+    <id>https://sqzr.cc//blog/2013/12/18/mac-os-x-10-dot-9-install-pyqt5/</id>
     <published>2013-12-18T11:10:00.000Z</published>
     <updated>2014-10-30T13:36:19.000Z</updated>
     <content type="html"><![CDATA[<p>PyQt是<code>Python</code>语言的GUI编程解决方案之一。可以用来代替Python内置的<code>Tkinter</code>。其它替代者还有<code>PyGTK</code>、<code>wxPython</code>等。与Qt一样，PyQt是一个自由软件。PyQt是PyKDE的基础。<br>PyQt的开发者是英国的“Riverbank Computing”公司。与4.5版本之前的Qt一样，它提供了GPL与商业协议两种授权方式，因此它可以免费地用于自由软件的开发。不过目前尚不提供LGPL授权方式。PyQt可以运行于Microsoft Windows、Mac OS X、Linux以及Unix的多数变种上。<br><a id="more"></a></p>
@@ -1105,16 +1105,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="python" scheme="http://sqzr.github.io/tags/python/"/>
+      <category term="python" scheme="https://sqzr.cc/tags/python/"/>
     
-      <category term="编程" scheme="http://sqzr.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+      <category term="编程" scheme="https://sqzr.cc/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[总结下ubuntu 13.10 安装nvidia显卡驱动的几种办法]]></title>
-    <link href="http://sqzr.github.io//blog/2013/11/24/zong-jie-xia-ubuntu-13-dot-10-an-zhuang-nvidiaxian-qia-qu-dong-de-ji-chong-ban-fa/"/>
-    <id>http://sqzr.github.io//blog/2013/11/24/zong-jie-xia-ubuntu-13-dot-10-an-zhuang-nvidiaxian-qia-qu-dong-de-ji-chong-ban-fa/</id>
+    <link href="https://sqzr.cc//blog/2013/11/24/zong-jie-xia-ubuntu-13-dot-10-an-zhuang-nvidiaxian-qia-qu-dong-de-ji-chong-ban-fa/"/>
+    <id>https://sqzr.cc//blog/2013/11/24/zong-jie-xia-ubuntu-13-dot-10-an-zhuang-nvidiaxian-qia-qu-dong-de-ji-chong-ban-fa/</id>
     <published>2013-11-24T11:42:00.000Z</published>
     <updated>2014-10-30T13:28:57.000Z</updated>
     <content type="html"><![CDATA[<p>NVIDIA显卡在Linux上的支持众所皆知,非常差,即使完全安装好官方的闭源驱动,效率和性能也达不到windows那样,按照网上的说法,大约是会低20%左右.但这点消耗影响并不大.因为在Linux上并没有多少消耗显卡的软件,安装好的目的,大部分是为了让电脑温度不那么高吧.到写这文章的时间,nvidia已经发布到<code>331.20</code>版的闭源驱动了,在上一个版本上提高了很大的性能,至少我玩wow不再卡了.<br>我的环境:  </p>
@@ -1159,16 +1159,16 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="linux" scheme="http://sqzr.github.io/tags/linux/"/>
+      <category term="linux" scheme="https://sqzr.cc/tags/linux/"/>
     
-      <category term="渗透" scheme="http://sqzr.github.io/categories/%E6%B8%97%E9%80%8F/"/>
+      <category term="渗透" scheme="https://sqzr.cc/categories/%E6%B8%97%E9%80%8F/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Ubuntu 搜狗输入法的安装]]></title>
-    <link href="http://sqzr.github.io//blog/2013/11/16/ubuntu-sou-gou-shu-ru-fa-de-an-zhuang/"/>
-    <id>http://sqzr.github.io//blog/2013/11/16/ubuntu-sou-gou-shu-ru-fa-de-an-zhuang/</id>
+    <link href="https://sqzr.cc//blog/2013/11/16/ubuntu-sou-gou-shu-ru-fa-de-an-zhuang/"/>
+    <id>https://sqzr.cc//blog/2013/11/16/ubuntu-sou-gou-shu-ru-fa-de-an-zhuang/</id>
     <published>2013-11-15T18:56:00.000Z</published>
     <updated>2014-10-30T13:27:51.000Z</updated>
     <content type="html"><![CDATA[<p>搜狗拼音输入法是2006年6月由搜狐（SOHU）公司推出的一款<code>Windows</code>平台下的汉字拼音输入法。搜狗拼音输入法是基于搜索引擎技术的、特别适合网民使用的、新一代的输入法产品，用户可以通过互联网备份自己的个性化词库和配置信息。目前与深度<code>Deepin</code>合作,开发了基于<code>fcitx</code>的搜狗输入法,不论是在词库还是在用户体验上,都比较适合中国人,自己在安装的过程中遇到了不少的问题.总结下自己成功安装的办法:<br><a id="more"></a>  </p>
@@ -1196,9 +1196,9 @@ CHP cmd.exe /c <span class="string">""</span>d:\my batch file.cmd<span class="st
     
     </summary>
     
-      <category term="linux" scheme="http://sqzr.github.io/tags/linux/"/>
+      <category term="linux" scheme="https://sqzr.cc/tags/linux/"/>
     
-      <category term="折腾" scheme="http://sqzr.github.io/categories/%E6%8A%98%E8%85%BE/"/>
+      <category term="折腾" scheme="https://sqzr.cc/categories/%E6%8A%98%E8%85%BE/"/>
     
   </entry>
   
