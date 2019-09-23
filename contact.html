@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/jquery.ext.js"></script>
+    <script src="./js/jquery.metisMenu.js"></script>
+    <script src="./js/jquery.sumoselect.min.js"></script>
+    <script src="./js/jquery.raty.js"></script>
+    <link href="./css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="./css/responsiveslides.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="./css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="./css/icommon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="./css/adapter.css">
+    <link rel="stylesheet" href="./css/style1.css">
+    <link rel="stylesheet" href="./css/jquery.mCustomScrollbar.min.css">
+    <!-- Modernizr JS -->
+    <script src="./js/modernizr-2.6.2.min.js"></script>
+    <script src="./js/responsiveslides.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>
+        function commit() {
+            var userName = $("input[name='userName']").val();
+            var userEmail = $("input[name='userEmail']").val();
+            var userPhone = $("input[name='userPhone']").val();
+            var userMsg = $("textarea[name='userMsg']").val();
+
+            if (userName.length == 0) {
+                alert("请输入姓名");
+                return;
+            }
+            if (userEmail.length ==0) {
+                alert("请输入邮箱");
+                return;
+            }
+            if (userMsg.length ==0) {
+                alert("请输入咨询内容");
+                return;
+            }
+            alert("提交成功");
+        }
+    </script>
+</head>
+<body>
+<div id="page">
+    <nav class="fh5co-nav" role="navigation">
+        <div class="top-menu" style="background:rgb(100, 100, 100)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-left menu">
+                        <ul>
+                            <li><a href="index.html"><img src="./images/logo.png"/></a></li>
+                            <li><a href="index.html" style="color:#c3c3c3;font-family:SimHei"><b>首页</b></a></li>
+                            <li><a href="about.html" style="color:#c3c3c3;font-family:SimHei"><b>关于我们</b></a></li>
+                            <li  class="menu-active"><a href="contact.html" style="color:#c3c3c3;font-family:SimHei"><b>联系我们</b></a></li>
+							<li><a href="policy.html" style="color:#c3c3c3;font-family:SimHei"><b>隐私政策</b></a></li>
+                            <li style="font-size: 25px;color: #c3c3c3 ;margin-right: 50px;float:right">成都华美医信健康咨询有限公司<br><span style="font-size:20px">CMC (Chengdu) Health Consulting Co., Ltd.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!---End-header--->
+<!---start-content---->
+<div class="wrap">
+    <div class="content">
+        <div class="clear"></div>
+        <div class="contact">
+            <div class="project-top-patination">
+                <ul>
+                    <li><a href="index.html"><b>首页</b></a></li>
+                    <li><p><b>联系我们</b></p></li>
+                </ul>
+            </div>
+            <div class="section group">
+                <div class="col span_1_of_3">
+                    <div class="company_address">
+                        <h3><b>公司信息 :</b></h3>
+                        <br>
+                        <p style="font-size: 15px">公司在职人员数:50人</p>
+                        <p style="font-size: 15px">电话:028-82883098</p>
+                        <p style="font-size: 15px">邮箱:<span>cdcmchealth@qq.com</span></p>
+                    </div>
+                </div>
+                <div class="col span_2_of_3">
+                    <div class="contact-form">
+                        <h3>联系我们</h3>
+                        <form method="post" action="#" id="about_name">
+                            <div>
+                                <span><label>姓名</label></span>
+                                <span><input name="userName" type="text" class="textbox"></span>
+                            </div>
+                            <div>
+                                <span><label>邮箱</label></span>
+                                <span><input name="userEmail" type="text" class="textbox"></span>
+                            </div>
+                            <div>
+                                <span><label>电话</label></span>
+                                <span><input name="userPhone" type="text" class="textbox"></span>
+                            </div>
+                            <div>
+                                <span><label>咨询内容</label></span>
+                                <span><textarea name="userMsg"> </textarea></span>
+                            </div>
+                            <div>
+                                <span><input type="button" value="提交" onclick="commit()"></span>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!---End-content---->
+</div>
+<footer id="fh5co-footer" role="contentinfo" style="background:rgb(130, 130, 130)">
+    <div class="container">
+        <div class="row row-pb-md">
+            <div class="col-md-3 fh5co-widget">
+                <div class="footer-left">
+                    <div class="qrinfo">
+                        <div class="pull-left">
+                            <img src="./images/二维码.png" width="130" alt="">
+                        </div>
+                        <div class="pull-left qrextinfo">
+                            <p style="font-size: 18px">&nbsp扫一扫二维码有惊喜</p>
+                            <p class="hour-online" style="font-size: 20px">&nbsp<b>24</b> 小时热线：</p>
+                            <p class="qr-phone" style="font-size: 18px">&nbsp028-82883098</p>
+                        </div>
+                        <div class="footer-slogan">
+                            <p><b>华美医信，飞扬梦想，期待你的加入</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget footer-col">
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget footer-col">
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget footer-col">
+                <h3>关于我们</h3>
+                <ul class="fh5co-footer-links">
+                    <li><a href="about.html"><u>简介</u></a></li>
+                    <li><a href="about.html"><u>发展方向</u></a></li>
+                    <li><a href="about.html"><u>公司产品</u></a></li>
+					<li><a href="policy.html"><u>隐私政策</u></a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget footer-col footer-col-last">
+                <h3>联系我们</h3>
+                <ul class="fh5co-footer-links" style="width:200px">
+                    <li><a href="contact.html"><u>电话:028-82883098</u></a></li>
+                    <li><a href="contact.html"><u>邮箱:cdcmchealth@qq.com</u></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!---start-wrap--->
+</body>
+</html>
+

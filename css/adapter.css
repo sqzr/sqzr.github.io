@@ -1,0 +1,490 @@
+@media screen and (max-width: 1200px) {
+
+    .banner {
+        height: 400px;
+    }
+
+    .hire-sub-menu {
+        margin-bottom: 60px;
+    }
+
+    .box-map {
+        top: 43px;
+        width: 600px;
+        height: 450px;
+    }
+
+    .jd-title {
+        font-size: 12px;
+    }
+
+    .dev-graph {
+        width: 80%;
+    }
+
+}
+
+@media screen and (max-width: 1040px) {
+    .box-map {
+        width: 400px;
+        height: 450px;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .banner {
+        height: 250px;
+    }
+
+    .about-item {
+        margin: 2px 0;
+    }
+
+    .about-sub-icon {
+        width: 40px;
+    }
+
+    .about-icon-content-md {
+        display: none;
+    }
+
+    .about-icon-content-xs {
+        display: block;
+    }
+
+    .hire-sub-menu-item span {
+        display: none;
+    }
+
+    .hire-sub-menu {
+        margin-bottom: 60px;
+    }
+
+    .jd-container {
+        padding-top: 15px;
+
+    }
+
+    .jd-title {
+        font-size: 16px;
+    }
+
+    .jd-content table {
+        width: 100% !important;
+    }
+
+    .hire-menu-active {
+        background-size: 50px 50px;
+        background-position-y: 20px;
+    }
+
+    .dev-graph {
+        width: 80%;
+    }
+
+    .team-members-row {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 20px;
+        background: url("../images/team-bg.png");
+        border-radius: 5px;
+    }
+
+    .core-member-bg-left {
+        display: none;
+    }
+
+    .team-content {
+        min-height: 630px;
+        height: auto;
+        padding-bottom: 25px;
+    }
+
+    .team-members-xs {
+        display: block;
+        text-align: center;
+        color: #fff;
+    }
+
+    .team-member-xs {
+        padding: 0;
+        position: relative;
+    }
+
+    .team-member-info-icon {
+        position: absolute;
+        right: 0;
+        top: 8px;
+        width: 25px !important;
+        margin: 25px !important;
+    }
+
+    .team-member-imgbox-xs {
+        width: 90px;
+        height: 90px;
+        overflow: hidden;
+        border-radius: 5px;
+    }
+
+    .team-members-xs img {
+        width: 90px;
+    }
+
+    .team-members-xs span {
+        display: block;
+        text-align: left;
+        margin-left: 10px;
+    }
+
+    .team-members-xs p {
+        margin-left: 10px;
+    }
+
+    .team-members-md {
+        display: none;
+    }
+
+    .member-imgbox-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #e31625;
+        margin: 10px 0 0 0;
+    }
+
+    .member-imgbox-hint {
+        color: #ccc;
+        margin: 0 0 15px 0;
+    }
+
+    .team-member-intro-xs {
+        margin-right: 30px;
+        text-align: left;
+    }
+
+    .dev-content {
+        display: none;
+    }
+
+    .dev-content-xs {
+        display: block;
+    }
+
+    .dev-content-xs img {
+        width: 100%;
+    }
+
+    .praise-circle-box {
+        display: none;
+    }
+
+    .building {
+        position: absolute;
+        right: 10%;
+        bottom: -30px;
+        width: 130px;
+        overflow: hidden;
+    }
+
+    .praise-content {
+        margin-left: 30px;
+    }
+
+    .footer-col {
+        display: none;
+    }
+
+    .footer-link-xs {
+        display: block;
+        padding: 0 0 0 30px;
+    }
+
+    .footer-link-xs a {
+        color: #fff;
+        font-weight: bold;
+        margin-right: 5px;
+        z-index: 99;
+    }
+
+    .btn-jd-view {
+        display: none;
+    }
+
+    .jd-right {
+        padding-top: 5px;
+    }
+
+    /*招聘页*/
+    .banner-social {
+        height: 210px;
+    }
+
+    .hire-jd-col {
+        padding: auto 0;
+        margin: 0;
+    }
+
+    .hire-header-nav {
+        display: none;
+    }
+
+    .hire-row {
+        padding: 5px 0 5px 0;
+    }
+
+    .hire-header-nav-xs {
+        display: block !important;
+    }
+
+    .banner-campus {
+        height: 210px;
+    }
+
+    .hire-row-brief {
+        display: none;
+    }
+
+    .hire-tip-time {
+        display: none;
+    }
+
+    .hire-tip {
+        margin-left: -15px;
+    }
+
+    .hire-tip-content {
+        margin-top: 2px;
+    }
+
+    .hire-tip-modal {
+        width: 85% !important;
+        margin: 20% auto 0;
+
+        min-height: 100px;
+        background: white;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        padding: 0;
+    }
+
+    .hire-tip-modal-header > .hire-tip {
+        padding-left: 15px;
+    }
+
+    /*关于我们*/
+    .banner-about-us {
+        height: 180px;
+    }
+
+    .ab-intro-right {
+        display: none !important;
+    }
+
+    .ab-intro {
+        height: auto;
+    }
+
+    .ab-intro > .row {
+        margin-left: 30px !important;
+    }
+
+    .ab-intro-container {
+        padding-right: 30px;
+    }
+
+    .ab-intro-sub {
+        margin: 30px 0 40px 0;
+    }
+
+    .core-content {
+        height: auto;
+        padding-bottom: 50px;
+    }
+
+    .core-content > .row {
+        margin-left: 30px;
+    }
+
+    .core-team-members-xs .row {
+        margin-left: 0;
+        margin-right: 30px;
+    }
+
+    .core-members {
+        display: none;
+    }
+
+    .core-right-red {
+        left: 30px;
+    }
+
+    .career-content {
+        display: none;
+    }
+
+    .career-content-xs {
+        height: 380px;
+        display: block;
+        position: relative;
+        background: url("../images/career_bg.png");
+    }
+
+    .career-content-xs > .row {
+        margin-left: 30px;
+    }
+
+    .ab-career-title-bg {
+        color: #f9656d;
+    }
+
+    .ab-career-title {
+        color: #fff;
+    }
+
+    .career-left-red {
+        width: 220px;
+        height: 90%;
+        bottom: 0;
+        left: 30px;
+        background: #fe4955;
+        position: absolute;
+    }
+
+    .career-right-content {
+        border: 1px #ddd solid;
+        border-radius: 5px;
+        width: 85%;
+        height: 160px;
+        left: 15%;
+        top: 120px;
+        position: absolute;
+
+        background: #fff url("../images/logo_dark_fringe.png") right bottom no-repeat;
+        background-size: 120px 120px;
+    }
+
+    .career-text {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: auto;
+        height: auto;
+        padding: 15px;
+    }
+
+    .career-title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .career-line {
+        width: 54px;
+        margin: 5px 0 15px 0;
+    }
+
+    .career-text p {
+        font-size: 13px;
+        line-height: 1.6em;
+        margin: 0;
+    }
+
+    .pay-right-content {
+        position: absolute;
+        width: 100%;
+        border: 0 solid transparent;
+        top: 10px;
+        right: 0;
+        min-width: 300px;
+        color: #fff;
+        padding: 25px 15px;
+    }
+
+    .pay-right-box-left img {
+        display: none;
+    }
+
+    .pay-right-box-right {
+        padding: 0 0 0 30px;
+    }
+
+    .pay-right-text {
+        display: none;
+    }
+
+    .pay-nav {
+        width: 100%;
+    }
+
+    .pay-nav li {
+        width: 32%;
+        margin-bottom: 20px;
+    }
+
+    .fare-box-xs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: 30px;
+        display: block;
+        z-index: 99;
+    }
+
+    .ab-fare-title-bg {
+        color: #666;
+    }
+
+    .ab-fare-title-bg {
+        z-index: 99;
+    }
+
+    .ab-line {
+        top: 25px;
+    }
+
+    .box-map {
+        display: none;
+    }
+
+    .banner-contact {
+        height: 560px;
+    }
+
+    .box-contact {
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding-top: 30px;
+    }
+
+    .contact-sns {
+        margin-left: 20px;
+    }
+
+    .menu-xs {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .about-icon-content-xs {
+        margin-left: -30px;
+    }
+
+    .career-content-xs > .career-right-content {
+        width: 87%;
+        height: 180px;
+        left: 12%;
+    }
+
+    .pay-content {
+        height: 450px;
+    }
+
+    .banner-about-us {
+        height: 140px;
+    }
+
+}
+
+
